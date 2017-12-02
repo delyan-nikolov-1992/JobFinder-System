@@ -36,7 +36,7 @@
                 <div>
                     @if (TempData["Message"] != null)
                     {
-                        JobFinder.Web.Models.MessageViewModel message = TempData["Message"] as JobFinder.Web.Models.MessageViewModel;
+                        JobFinder.Web.Models.MessageViewModels.MessageViewModel message = TempData["Message"] as JobFinder.Web.Models.MessageViewModels.MessageViewModel;
                         @Html.DisplayFor(m => message)
                     }
                     @RenderBody()

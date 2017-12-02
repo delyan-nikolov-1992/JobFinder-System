@@ -1,14 +1,11 @@
-﻿using JobFinder.Data.Repositories;
-using JobFinder.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JobFinder.Data
+﻿namespace JobFinder.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using JobFinder.Data.Repositories;
+    using JobFinder.Models;
+
     public class JobFinderData : IJobFinderData
     {
         private DbContext context;
@@ -66,7 +63,7 @@ namespace JobFinder.Data
             var typeOfRepository = typeof(T);
             if (!this.repositories.ContainsKey(typeOfRepository))
             {
-                var newRepository = Activator.CreateInstance(typeof(EFRepository<T>), context);
+                var newRepository = Activator.CreateInstance(typeof(EFRepository<T>), this.context);
                 this.repositories.Add(typeOfRepository, newRepository);
             }
 

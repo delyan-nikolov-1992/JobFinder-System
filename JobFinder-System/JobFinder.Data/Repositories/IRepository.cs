@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JobFinder.Data.Repositories
+﻿namespace JobFinder.Data.Repositories
 {
-    public interface IRepository<T> where T: class
+    using System.Linq;
+
+    public interface IRepository<T> where T : class
     {
         IQueryable<T> All();
 

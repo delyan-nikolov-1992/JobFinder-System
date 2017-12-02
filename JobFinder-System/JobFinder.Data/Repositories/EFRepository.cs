@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JobFinder.Data.Repositories
+﻿namespace JobFinder.Data.Repositories
 {
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+
     public class EFRepository<T> : IRepository<T> where T : class
     {
-        protected IDbSet<T> set { get; set; }
-
-        protected DbContext Context { get; set; }
-
         public EFRepository(DbContext context)
         {
             if (context == null)
@@ -21,22 +14,26 @@ namespace JobFinder.Data.Repositories
             }
 
             this.Context = context;
-            this.set = this.Context.Set<T>();
+            this.Set = this.Context.Set<T>();
         }
+
+        protected IDbSet<T> Set { get; set; }
+
+        protected DbContext Context { get; set; }
 
         public IQueryable<T> All()
         {
-            return this.set;
+            return this.Set;
         }
 
         public T Find(int id)
         {
-            return this.set.Find(id);
+            return this.Set.Find(id);
         }
 
         public T Find(string id)
         {
-            return this.set.Find(id);
+            return this.Set.Find(id);
         }
 
         public void Add(T item)
@@ -76,7 +73,7 @@ namespace JobFinder.Data.Repositories
 
             if (entry.State == EntityState.Detached)
             {
-                this.set.Attach(entity);
+                this.Set.Attach(entity);
             }
 
             entry.State = state;

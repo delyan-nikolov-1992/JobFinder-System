@@ -1,7 +1,7 @@
-﻿using System.Web.Mvc;
-
-namespace JobFinder.Web.Areas.Company
+﻿namespace JobFinder.Web.Areas.Company
 {
+    using System.Web.Mvc;
+
     public class CompanyAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
@@ -17,8 +17,7 @@ namespace JobFinder.Web.Areas.Company
             context.MapRoute(
                 "Company_default",
                 "Company/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
-            );
+                new { action = "Index", id = UrlParameter.Optional });
         }
     }
 }

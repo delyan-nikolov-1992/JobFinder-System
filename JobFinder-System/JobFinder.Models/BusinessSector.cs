@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace JobFinder.Models
+﻿namespace JobFinder.Models
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class BusinessSector
     {
         public BusinessSector()
@@ -19,7 +15,7 @@ namespace JobFinder.Models
         public int Id { get; set; }
 
         [Required]
-        [Index(IsUnique=true)]
+        [Index(IsUnique = true)]
         [MaxLength(25)]
         public string Name { get; set; }
 

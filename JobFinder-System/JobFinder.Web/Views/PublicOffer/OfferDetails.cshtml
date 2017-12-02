@@ -1,10 +1,10 @@
-﻿@model JobFinder.Web.Models.DetailsOfferViewModel
+﻿@model JobFinder.Web.Models.OfferViewModels.DetailsOfferViewModel
 @{
     ViewBag.Title = "OfferDetails";
 }
 @if (Model.IsActive || (User.IsInRole("Person") && (bool)TempData["HasApplied"]))
 {
-    @Html.Partial("_OfferInDetailsPartial", (JobFinder.Web.Models.DetailsOfferViewModel)Model)
+    @Html.Partial("_OfferInDetailsPartial", (JobFinder.Web.Models.OfferViewModels.DetailsOfferViewModel)Model)
 
     if (User.IsInRole("Person"))
     {

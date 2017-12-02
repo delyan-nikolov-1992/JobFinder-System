@@ -1,19 +1,19 @@
-﻿using JobFinder.Models;
-using JobFinder.Web.Areas.Company.Models;
-using JobFinder.Web.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using JobFinder.Data;
-using JobFinder.Web.Models;
-using PagedList;
-
-namespace JobFinder.Web.Areas.Company.Controllers
+﻿namespace JobFinder.Web.Areas.Company.Controllers
 {
-    [Authorize(Roles="Company")]
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
+    using JobFinder.Data;
+    using JobFinder.Models;
+    using JobFinder.Web.Areas.Company.Models.JobOfferViewModels;
+    using JobFinder.Web.Controllers;
+    using JobFinder.Web.Models.MessageViewModels;
+    using JobFinder.Web.Models.OfferViewModels;
+    using Microsoft.AspNet.Identity;
+    using PagedList;
+
+    [Authorize(Roles = "Company")]
     public class JobOfferController : BaseController
     {
         private const int OffersPerPage = 5;
@@ -27,46 +27,47 @@ namespace JobFinder.Web.Areas.Company.Controllers
             string companyId = User.Identity.GetUserId();
             int pageNumber = page ?? 1;
 
-            IEnumerable<ListOfferViewModel> model = this.data.JobOffers.All().Where(o => o.CompanyId == companyId)
+            IEnumerable<ListOfferViewModel> model = this.Data.JobOffers.All().Where(o => o.CompanyId == companyId)
                 .OrderByDescending(o => o.DateCreated).Select(ListOfferViewModel.FromJobOffer);
 
             if (onlyActive != null)
             {
                 model = model.Where(m => m.IsActive == onlyActive);
-                TempData["onlyActive"] = onlyActive;
+                this.TempData["onlyActive"] = onlyActive;
             }
 
             model = model.ToPagedList(pageNumber, OffersPerPage);
-            return View(model);
+            return this.View(model);
         }
 
         public ActionResult OfferDetails(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction("GetOffers");
+                return this.RedirectToAction("GetOffers");
             }
 
             string companyId = User.Identity.GetUserId();            
-            DetailsOfferViewModel model = this.data.JobOffers.All().Where(o => o.Id == id && o.CompanyId == companyId)
+            DetailsOfferViewModel model = this.Data.JobOffers.All().Where(o => o.Id == id && o.CompanyId == companyId)
                 .Select(DetailsOfferViewModel.FromJobOffer).FirstOrDefault();
 
             if (model == null)
             {
                 MessageViewModel message = new MessageViewModel { Text = "Job offer not found.", Type = MessageType.Error };
-                TempData["Message"] = message;
-                return RedirectToAction("GetOffers", "JobOffer");
-                //TempData["NotFound"] = "Job offer not found.";
+                this.TempData["Message"] = message;
+                return this.RedirectToAction("GetOffers", "JobOffer");
+
+                // TempData["NotFound"] = "Job offer not found.";
             }
 
-            return View(model);
+            return this.View(model);
         }
 
         public ActionResult CreateOffer()
         {
-            TempData["Towns"] = this.data.Towns.All().Where(t => !t.IsDeleted).Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() });
-            TempData["BusinessSectors"] = this.data.BusinessSectors.All().Where(s => !s.IsDeleted).Select(b => new SelectListItem { Text = b.Name, Value = b.Id.ToString() });
-            return View();
+            this.TempData["Towns"] = this.Data.Towns.All().Where(t => !t.IsDeleted).Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() });
+            this.TempData["BusinessSectors"] = this.Data.BusinessSectors.All().Where(s => !s.IsDeleted).Select(b => new SelectListItem { Text = b.Name, Value = b.Id.ToString() });
+            return this.View();
         }
 
         [HttpPost]
@@ -85,26 +86,27 @@ namespace JobFinder.Web.Areas.Company.Controllers
                 offer.IsActive = true;
                 offer.CompanyId = companyId;
                 offer.BusinessSectorId = model.BusinessSectorId;
-                this.data.JobOffers.Add(offer);
+                this.Data.JobOffers.Add(offer);
                 MessageViewModel message = new MessageViewModel 
                     { Type = MessageType.Success, Text = "You have successfully created your job offer." };
-                TempData["Message"] = message;
-                //TempData["Success"] = "You have successfully created your job offer.";
-                return RedirectToAction("CreateOffer");
+                this.TempData["Message"] = message;
+
+                // TempData["Success"] = "You have successfully created your job offer.";
+                return this.RedirectToAction("CreateOffer");
             }
 
-            return View(model);
+            return this.View(model);
         }
 
         public ActionResult MarkAsExpired(int? id)
         {
             if (id != null)
             {
-                JobOffer offer = this.data.JobOffers.Find((int)id);
+                JobOffer offer = this.Data.JobOffers.Find((int)id);
                 if (offer != null)
                 {
                     offer.IsActive = false;
-                    this.data.JobOffers.Update(offer);
+                    this.Data.JobOffers.Update(offer);
                 }               
             }
 

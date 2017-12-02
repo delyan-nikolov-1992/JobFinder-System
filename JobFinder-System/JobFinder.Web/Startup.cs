@@ -2,6 +2,7 @@
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(JobFinder.Web.Startup))]
+
 namespace JobFinder.Web
 {
     public partial class Startup

@@ -1,18 +1,15 @@
-﻿using JobFinder.Data;
-using JobFinder.Web.Controllers;
-using Kendo.Mvc.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using JobFinder.Web.Models;
-using Kendo.Mvc.Extensions;
-using JobFinder.Models;
-
-namespace JobFinder.Web.Areas.Admin.Controllers
+﻿namespace JobFinder.Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles="Admin")]
+    using System.Linq;
+    using System.Web.Mvc;
+    using JobFinder.Data;
+    using JobFinder.Models;
+    using JobFinder.Web.Controllers;
+    using JobFinder.Web.Models.OfferViewModels;
+    using Kendo.Mvc.Extensions;
+    using Kendo.Mvc.UI;
+
+    [Authorize(Roles = "Admin")]
     public class OfferController : BaseController
     {
         public OfferController(IJobFinderData data) : base(data)
@@ -22,13 +19,13 @@ namespace JobFinder.Web.Areas.Admin.Controllers
         // GET: Admin/Offer
         public ActionResult Index()
         {
-            return View();
+            return this.View();
         }
 
         [HttpPost]
         public ActionResult Read([DataSourceRequest]DataSourceRequest request)
         {
-            var model = this.data.JobOffers.All().OrderByDescending(o => o.DateCreated)
+            var model = this.Data.JobOffers.All().OrderByDescending(o => o.DateCreated)
                 .Select(AdminOfferViewModel.FromJobOffer).ToDataSourceResult(request, ModelState);
             return this.Json(model);
         }
@@ -38,16 +35,16 @@ namespace JobFinder.Web.Areas.Admin.Controllers
         {
             if (model != null && ModelState.IsValid)
             {
-                JobOffer offer = this.data.JobOffers.Find(model.Id);
+                JobOffer offer = this.Data.JobOffers.Find(model.Id);
                 if (offer != null)
                 {
-                    //update only status
+                    // update only status
                     offer.IsActive = model.IsActive;
-                    this.data.JobOffers.Update(offer);
+                    this.Data.JobOffers.Update(offer);
                 }
             }
 
-            return Json(new[] { model }.ToDataSourceResult(request, ModelState));
+            return this.Json(new[] { model }.ToDataSourceResult(request, this.ModelState));
         }
     }
 }

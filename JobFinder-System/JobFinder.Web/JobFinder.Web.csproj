@@ -199,7 +199,10 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig\ApplicationSignInManager.cs" />
+    <Compile Include="App_Start\IdentityConfig\ApplicationUserManager.cs" />
+    <Compile Include="App_Start\IdentityConfig\EmailService.cs" />
+    <Compile Include="App_Start\IdentityConfig\SmsService.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -208,18 +211,30 @@
     <Compile Include="Areas\Admin\Controllers\OfferController.cs" />
     <Compile Include="Areas\Admin\Controllers\TownController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
-    <Compile Include="Areas\Admin\Models\BusinessSectorViewModels.cs" />
-    <Compile Include="Areas\Admin\Models\TownViewModels.cs" />
-    <Compile Include="Areas\Admin\Models\UserViewModels.cs" />
+    <Compile Include="Areas\Admin\Models\BusinessSectorViewModels\BusinessSectorViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\TownViewModels\TownViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\UserViewModels\PersonViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\UserViewModels\CompanyViewModel.cs" />
     <Compile Include="Areas\Company\CompanyAreaRegistration.cs" />
     <Compile Include="Areas\Company\Controllers\ApplicationController.cs" />
     <Compile Include="Areas\Company\Controllers\BusinessCardController.cs" />
     <Compile Include="Areas\Company\Controllers\JobOfferController.cs" />
-    <Compile Include="Areas\Company\Models\BussinessCardViewModels.cs" />
-    <Compile Include="Areas\Company\Models\JobOfferViewModels.cs" />
+    <Compile Include="Areas\Company\Models\BussinessCardViewModels\BussinessCardViewModel.cs" />
+    <Compile Include="Areas\Company\Models\BussinessCardViewModels\EditBussinessCardViewModel.cs" />
+    <Compile Include="Areas\Company\Models\JobOfferViewModels\CreateOfferViewModel.cs" />
+    <Compile Include="Areas\Company\Models\JobOfferViewModels\ListOfferViewModel.cs" />
     <Compile Include="Areas\Person\Controllers\ApplyController.cs" />
     <Compile Include="Areas\Person\Controllers\FollowedOffersController.cs" />
-    <Compile Include="Models\ApplicationViewModels.cs" />
+    <Compile Include="Models\AccountViewModels\ExternalLoginConfirmationViewModel.cs" />
+    <Compile Include="Models\AccountViewModels\ExternalLoginListViewModel.cs" />
+    <Compile Include="Models\AccountViewModels\ForgotPasswordViewModel.cs" />
+    <Compile Include="Models\AccountViewModels\ForgotViewModel.cs" />
+    <Compile Include="Models\AccountViewModels\LoginViewModel.cs" />
+    <Compile Include="Models\AccountViewModels\RegisterCompanyViewModel.cs" />
+    <Compile Include="Models\AccountViewModels\RegisterViewModel.cs" />
+    <Compile Include="Models\AccountViewModels\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\AccountViewModels\SendCodeViewModel.cs" />
+    <Compile Include="Models\AccountViewModels\VerifyCodeViewModel.cs" />
     <Compile Include="Areas\Person\PersonAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -229,10 +244,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\MessageViewModel.cs" />
-    <Compile Include="Models\OfferViewModels.cs" />
+    <Compile Include="Models\ApplicationViewModels\ApplicationViewModel.cs" />
+    <Compile Include="Models\ManageViewModels\AddPhoneNumberViewModel.cs" />
+    <Compile Include="Models\ManageViewModels\ChangePasswordViewModel.cs" />
+    <Compile Include="Models\ManageViewModels\ConfigureTwoFactorViewModel.cs" />
+    <Compile Include="Models\ManageViewModels\FactorViewModel.cs" />
+    <Compile Include="Models\ManageViewModels\IndexViewModel.cs" />
+    <Compile Include="Models\ManageViewModels\ManageLoginsViewModel.cs" />
+    <Compile Include="Models\ManageViewModels\SetPasswordViewModel.cs" />
+    <Compile Include="Models\ManageViewModels\VerifyPhoneNumberViewModel.cs" />
+    <Compile Include="Models\MessageViewModels\MessageType.cs" />
+    <Compile Include="Models\MessageViewModels\MessageViewModel.cs" />
+    <Compile Include="Models\OfferViewModels\AdminOfferViewModel.cs" />
+    <Compile Include="Models\OfferViewModels\DetailsOfferViewModel.cs" />
+    <Compile Include="Models\OfferViewModels\SearchOfferViewModel.cs" />
+    <Compile Include="Models\OfferViewModels\SearchResultOfferViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

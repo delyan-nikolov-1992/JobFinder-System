@@ -1,12 +1,9 @@
-﻿using JobFinder.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
-
-namespace JobFinder.Web.Models
+﻿namespace JobFinder.Web.Models.ApplicationViewModels
 {
+    using System;
+    using System.Linq.Expressions;
+    using JobFinder.Models;
+
     public class ApplicationViewModel
     {
         public static Expression<Func<Application, ApplicationViewModel>> FromApplication

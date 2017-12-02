@@ -1,18 +1,16 @@
-﻿using JobFinder.Data;
-using JobFinder.Models;
-using JobFinder.Web.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using JobFinder.Web.Models;
-using PagedList;
-
-namespace JobFinder.Web.Areas.Person.Controllers
+﻿namespace JobFinder.Web.Areas.Person.Controllers
 {
-    [Authorize(Roles="Person")]
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
+    using JobFinder.Data;
+    using JobFinder.Models;
+    using JobFinder.Web.Controllers;
+    using JobFinder.Web.Models.OfferViewModels;
+    using Microsoft.AspNet.Identity;
+    using PagedList;
+
+    [Authorize(Roles = "Person")]
 
     public class FollowedOffersController : BaseController
     {
@@ -20,14 +18,13 @@ namespace JobFinder.Web.Areas.Person.Controllers
 
         public FollowedOffersController(IJobFinderData data) : base(data)
         {
-
         }
 
         public ActionResult Follow(int? id)
         {
-            JobOffer offer = this.data.JobOffers.Find((int)id);
+            JobOffer offer = this.Data.JobOffers.Find((int)id);
             string personId = this.User.Identity.GetUserId();
-            JobFinder.Models.Person currentUser = this.data.People.Find(personId);
+            JobFinder.Models.Person currentUser = this.Data.People.Find(personId);
 
             if (offer.PeopleFollowing.Contains(currentUser))
             {
@@ -38,7 +35,7 @@ namespace JobFinder.Web.Areas.Person.Controllers
                 offer.PeopleFollowing.Add(currentUser);
             }
 
-            this.data.SaveChanges();
+            this.Data.SaveChanges();
 
             return new EmptyResult();
         }
@@ -46,13 +43,13 @@ namespace JobFinder.Web.Areas.Person.Controllers
         public ActionResult GetFollowedOffers(int? page)
         {
             string currentUser = this.User.Identity.GetUserId();
-            IEnumerable<SearchResultOfferViewModel> model = this.data.People.Find(currentUser)
+            IEnumerable<SearchResultOfferViewModel> model = this.Data.People.Find(currentUser)
                 .FollowedOffers.AsQueryable().Select(SearchResultOfferViewModel.FromJobOffer)
                 .OrderByDescending(o => o.DateCreated);
 
             int pageNumber = page ?? 1;
             model = model.ToPagedList(pageNumber, OffersPerPage);
-            return View(model);
+            return this.View(model);
         }
     }
 }

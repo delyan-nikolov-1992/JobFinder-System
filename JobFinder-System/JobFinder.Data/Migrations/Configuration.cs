@@ -1,26 +1,23 @@
 namespace JobFinder.Data.Migrations
 {
+    using System.Collections.Generic;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
     using JobFinder.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Data.Entity.Validation;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<JobFinder.Data.JobFinderDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
+            this.AutomaticMigrationsEnabled = true;
+            this.AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(JobFinder.Data.JobFinderDbContext context)
         {
-            //Add roles
+            // Add roles
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
                 var store = new RoleStore<IdentityRole>(context);
@@ -42,10 +39,11 @@ namespace JobFinder.Data.Migrations
                 }
             }
 
-            //Add towns
+            // Add towns
             if (!context.Towns.Any())
             {
-                context.Towns.AddOrUpdate(t => t.Name,
+                context.Towns.AddOrUpdate(
+                    t => t.Name,
                     new Town { Name = "Sofia" },
                     new Town { Name = "Plovdiv" },
                     new Town { Name = "Varna" },
@@ -60,19 +58,18 @@ namespace JobFinder.Data.Migrations
                     new Town { Name = "Haskovo" },
                     new Town { Name = "Pernik" },
                     new Town { Name = "Blagoevgrad" },
-                    new Town { Name = "Pazardjik" }
-                );
+                    new Town { Name = "Pazardjik" });
             }
-
 
             BusinessSector sports = new BusinessSector { Name = "Sports" };
             BusinessSector security = new BusinessSector { Name = "Scurity" };
             BusinessSector travel = new BusinessSector { Name = "Travel" };
 
-            //Add business sectors
+            // Add business sectors
             if (!context.BusinessSectors.Any())
             {
-                context.BusinessSectors.AddOrUpdate(s => s.Name,
+                context.BusinessSectors.AddOrUpdate(
+                    s => s.Name,
                     new BusinessSector { Name = "Accounting" },
                     new BusinessSector { Name = "Finance" },
                     new BusinessSector { Name = "Advertising/PR" },
@@ -95,11 +92,12 @@ namespace JobFinder.Data.Migrations
                     new BusinessSector { Name = "Production" },
                     new BusinessSector { Name = "Food & Beverage" },
                     new BusinessSector { Name = "Telecommunications" },
-                    sports, security, travel
-                    );
+                    sports,
+                    security,
+                    travel);
             }           
 
-            //Create admin, company and person
+            // Create admin, company and person
             if (!context.Users.Any(u => u.UserName == "admin@admin.bg"))
             {
                 var store = new UserStore<User>(context);

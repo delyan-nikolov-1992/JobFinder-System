@@ -1,17 +1,15 @@
-﻿using JobFinder.Data;
-using JobFinder.Models;
-using JobFinder.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using System.Data.Entity;
-using JobFinder.Web.Areas.Company.Models;
-
-namespace JobFinder.Web.Controllers
+﻿namespace JobFinder.Web.Controllers
 {
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Web.Mvc;
+    using JobFinder.Data;
+    using JobFinder.Models;
+    using JobFinder.Web.Areas.Company.Models.BussinessCardViewModels;
+    using JobFinder.Web.Models.MessageViewModels;
+    using JobFinder.Web.Models.OfferViewModels;
+    using Microsoft.AspNet.Identity;
+
     public class PublicOfferController : BaseController
     {
         public PublicOfferController(IJobFinderData data) : base(data)
@@ -21,62 +19,63 @@ namespace JobFinder.Web.Controllers
         // GET: PublicOffer
         public ActionResult OfferDetails(int? id)
         {
-            JobOffer offer = this.data.JobOffers.Find((int)id);
+            JobOffer offer = this.Data.JobOffers.Find((int)id);
 
             if (id == null || offer == null)
             {
-                return RedirectToAction("SearchOffers", "SearchOffer");
+                return this.RedirectToAction("SearchOffers", "SearchOffer");
             }
 
             offer.Views += 1;
-            this.data.JobOffers.Update(offer);
+            this.Data.JobOffers.Update(offer);
             
-            DetailsOfferViewModel model = this.data.JobOffers.All().Where(o => o.Id == id)
+            DetailsOfferViewModel model = this.Data.JobOffers.All().Where(o => o.Id == id)
                 .Select(DetailsOfferViewModel.FromJobOffer).FirstOrDefault();
 
             if (Request.IsAuthenticated && User.IsInRole("Person"))
             {
                 string personId = this.User.Identity.GetUserId();
-                Application app = this.data.Applications.All().Where(a => a.PersonId == personId && a.JobOfferId == model.Id)
+                Application app = this.Data.Applications.All().Where(a => a.PersonId == personId && a.JobOfferId == model.Id)
                     .Include("Person").FirstOrDefault();
-                TempData["HasApplied"] = (app == null) ? false : true;
-                Person current = this.data.People.Find(personId);
+                this.TempData["HasApplied"] = (app == null) ? false : true;
+                Person current = this.Data.People.Find(personId);
 
                 if (offer.PeopleFollowing.Contains(current))
                 {
-                    TempData["FollowButtonText"] = "Unfollow";
+                    this.TempData["FollowButtonText"] = "Unfollow";
                 }
                 else
                 {
-                    TempData["FollowButtonText"] = "Follow";
+                    this.TempData["FollowButtonText"] = "Follow";
                 }
             }
 
-            return View(model);
+            return this.View(model);
         }
 
         public ActionResult GetCompanyBusinessCard(string id)
         {
-            if (String.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
-                return RedirectToAction("SearchOffers", "SearchOffer");
+                return this.RedirectToAction("SearchOffers", "SearchOffer");
             }
 
-            BussinessCardViewModel model = this.data.Companies.All().Where(c => c.Id == id)
+            BussinessCardViewModel model = this.Data.Companies.All().Where(c => c.Id == id)
                 .Select(BussinessCardViewModel.FromCompany).FirstOrDefault();
 
-            TempData["Sectors"] = this.data.BusinessSectors.All()
+            this.TempData["Sectors"] = this.Data.BusinessSectors.All()
                 .Select(s => new SelectListItem { Text = s.Name, Value = s.Id.ToString() });
 
             if (model == null)
             {
                 MessageViewModel message = new MessageViewModel { Type = MessageType.Error, Text = "Company not found." };
-                TempData["Message"] = message;
-                return RedirectToAction("SearchOffers", "SearchOffer");
-                //TempData["NotFound"] = "Company not found.";
+                this.TempData["Message"] = message;
+                return this.RedirectToAction("SearchOffers", "SearchOffer");
+
+                // TempData["NotFound"] = "Company not found.";
             }
 
-            return View("BussinessCard", model);
+            return this.View("BussinessCard", model);
         }
     }
 }

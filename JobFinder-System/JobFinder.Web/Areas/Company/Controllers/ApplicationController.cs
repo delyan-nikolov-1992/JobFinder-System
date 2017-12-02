@@ -1,19 +1,16 @@
-﻿using JobFinder.Data;
-using JobFinder.Web.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using PagedList;
-using Microsoft.AspNet.Identity;
-using JobFinder.Web.Models;
-using System.Data.Entity;
-using JobFinder.Models;
-
-namespace JobFinder.Web.Areas.Company.Controllers
+﻿namespace JobFinder.Web.Areas.Company.Controllers
 {
-    [Authorize(Roles="Company")]
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Web.Mvc;
+    using JobFinder.Data;
+    using JobFinder.Models;
+    using JobFinder.Web.Controllers;
+    using JobFinder.Web.Models.ApplicationViewModels;
+    using PagedList;
+
+    [Authorize(Roles = "Company")]
     public class ApplicationController : BaseController
     {
         private const int ApplicationsPerPage = 5;
@@ -26,28 +23,28 @@ namespace JobFinder.Web.Areas.Company.Controllers
         {
             int pageNumber = page ?? 1;
 
-            IEnumerable<ApplicationViewModel> model = this.data.Applications.All()
+            IEnumerable<ApplicationViewModel> model = this.Data.Applications.All()
                 .Where(a => a.JobOfferId == (int)id).OrderByDescending(a => a.DateUploaded).Include("JobOffer")
                 .Select(ApplicationViewModel.FromApplication);
 
-            model = Filter(model, approved, rejected, notSeen);
+            model = this.Filter(model, approved, rejected, notSeen);
 
             model = model.ToPagedList(pageNumber, ApplicationsPerPage);
 
-            TempData["approved"] = approved == "on" ? true : false; 
-            TempData["rejected"] = rejected == "on" ? true : false; 
-            TempData["notSeen"] = notSeen == "on" ? true : false; 
+            this.TempData["approved"] = approved == "on" ? true : false;
+            this.TempData["rejected"] = rejected == "on" ? true : false;
+            this.TempData["notSeen"] = notSeen == "on" ? true : false;
 
-            return View(model);
+            return this.View(model);
         }
 
         public ActionResult ChangeStatus(int id, bool isApproved)
         {
-            Application app = this.data.Applications.Find(id);
+            Application app = this.Data.Applications.Find(id);
             if (app != null)
             {
                 app.IsApproved = isApproved;
-                this.data.Applications.Update(app);
+                this.Data.Applications.Update(app);
             }
 
             return new EmptyResult();
@@ -55,8 +52,8 @@ namespace JobFinder.Web.Areas.Company.Controllers
 
         public FileContentResult DownloadFile(int id)
         {
-            Application cv = this.data.Applications.All().FirstOrDefault(a => a.Id == id);
-            return File(cv.FileData, cv.ContentType, cv.FileName);
+            Application cv = this.Data.Applications.All().FirstOrDefault(a => a.Id == id);
+            return this.File(cv.FileData, cv.ContentType, cv.FileName);
         }
 
         private IEnumerable<ApplicationViewModel> Filter(IEnumerable<ApplicationViewModel> model, string appr, string rej, string notseen)

@@ -1,18 +1,16 @@
-﻿using System.Web;
-using System.Web.Optimization;
-
-namespace JobFinder.Web
+﻿namespace JobFinder.Web
 {
+    using System.Web.Optimization;
+
     public class BundleConfig
     {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.IgnoreList.Clear(); //new
+            bundles.IgnoreList.Clear(); // new
 
             RegisterScriptBundles(bundles);
             RegisterStyleBundles(bundles);
-
 
            /* bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
@@ -57,7 +55,7 @@ namespace JobFinder.Web
                 "~/Scripts/kendo/kendo.all.min.js",
                 "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
 
-            //"~/Scripts/jquery-{version}.js" "~/Scripts/kendo/jquery.min.js"
+            // "~/Scripts/jquery-{version}.js" "~/Scripts/kendo/jquery.min.js"
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.unobtrusive-ajax.js"));

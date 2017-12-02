@@ -1,14 +1,11 @@
-﻿using JobFinder.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
-using System.Web.Mvc;
-
-namespace JobFinder.Web.Areas.Admin.Models
+﻿namespace JobFinder.Web.Areas.Admin.Models.BusinessSectorViewModels
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq.Expressions;
+    using System.Web.Mvc;
+    using JobFinder.Models;
+
     public class BusinessSectorViewModel
     {
         public static Expression<Func<BusinessSector, BusinessSectorViewModel>> FromBusinessSector

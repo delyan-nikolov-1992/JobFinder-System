@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace JobFinder.Models
+﻿namespace JobFinder.Models
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     [Table("Companies")]
     public class Company : User
     {
@@ -17,12 +13,12 @@ namespace JobFinder.Models
         }
 
         [Required]
-        [Index(IsUnique=true)]
+        [Index(IsUnique = true)]
         [MaxLength(13)]
         public string Bulstat { get; set; }
 
         [Required]
-        [Index(IsUnique=true)]
+        [Index(IsUnique = true)]
         [MaxLength(60)]
         public string CompanyName { get; set; }
 

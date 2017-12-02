@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-
-namespace JobFinder.Models
+﻿namespace JobFinder.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public class Application
     {
         [Key]
@@ -28,10 +24,12 @@ namespace JobFinder.Models
 
         [Required]
         public string PersonId { get; set; }
+
         public virtual Person Person { get; set; }
 
         [Required]
         public int JobOfferId { get; set; }
+
         public virtual JobOffer JobOffer { get; set; }
     }
 }

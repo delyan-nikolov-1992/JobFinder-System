@@ -1,16 +1,15 @@
-﻿using System;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.Google;
-using Owin;
-using JobFinder.Web.Models;
-using JobFinder.Models;
-using JobFinder.Data;
-
-namespace JobFinder.Web
+﻿namespace JobFinder.Web
 {
+    using System;
+    using JobFinder.Data;
+    using JobFinder.Models;
+    using JobFinder.Web.IdentityConfig;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
+    using Microsoft.Owin.Security.Cookies;
+    using Owin;
+
     public partial class Startup
     {
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
@@ -48,23 +47,23 @@ namespace JobFinder.Web
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            // app.UseMicrosoftAccountAuthentication(
+            //     clientId: "",
+            //     clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            // app.UseTwitterAuthentication(
+            //    consumerKey: "",
+            //    consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            // app.UseFacebookAuthentication(
+            //    appId: "",
+            //    appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            // app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            // {
+            //     ClientId = "",
+            //     ClientSecret = ""
+            // });
         }
     }
 }

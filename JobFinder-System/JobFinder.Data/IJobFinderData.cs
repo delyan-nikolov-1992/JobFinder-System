@@ -1,13 +1,8 @@
-﻿using JobFinder.Data.Repositories;
-using JobFinder.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JobFinder.Data
+﻿namespace JobFinder.Data
 {
+    using JobFinder.Data.Repositories;
+    using JobFinder.Models;
+
     public interface IJobFinderData
     {
         IRepository<User> Users { get; }

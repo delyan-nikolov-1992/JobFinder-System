@@ -1,26 +1,20 @@
-﻿using JobFinder.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using JobFinder.Models;
-
-namespace JobFinder.Web.Controllers
+﻿namespace JobFinder.Web.Controllers
 {
+    using System.Web.Mvc;
+    using JobFinder.Data;
+
     public class BaseController : Controller
     {
-        protected IJobFinderData data;
-
         public BaseController(IJobFinderData data)
         {
-            this.data = data;                     
+            this.Data = data;                     
         }
+
+        protected IJobFinderData Data { get; private set; }
 
         public ActionResult Error()
         {
-            return View();
+            return this.View();
         }
     }
 }

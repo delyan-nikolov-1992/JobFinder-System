@@ -1,20 +1,21 @@
-﻿using JobFinder.Data;
-using JobFinder.Models;
-using JobFinder.Web.Controllers;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using System.Data.Entity;
-using JobFinder.Web.Models;
-using PagedList;
-
-namespace JobFinder.Web.Areas.Person.Controllers
+﻿namespace JobFinder.Web.Areas.Person.Controllers
 {
-    [Authorize(Roles="Person")]
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.IO;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
+    using JobFinder.Data;
+    using JobFinder.Models;
+    using JobFinder.Web.Controllers;
+    using JobFinder.Web.Models.ApplicationViewModels;
+    using JobFinder.Web.Models.MessageViewModels;
+    using Microsoft.AspNet.Identity;
+    using PagedList;
+
+    [Authorize(Roles = "Person")]
     public class ApplyController : BaseController
     {
         private const int MaxFileSize = 1024 * 1024;
@@ -27,18 +28,18 @@ namespace JobFinder.Web.Areas.Person.Controllers
 
         public ActionResult ApplyForOffer()
         {
-            return View();
+            return this.View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ApplyForOffer(HttpPostedFileBase file)
         {
-            bool isValid = IsValidRequest(file);
+            bool isValid = this.IsValidRequest(file);
 
-            if (!IsValidRequest(file))
+            if (!this.IsValidRequest(file))
             {
-                return RedirectToAction("ApplyForOffer");
+                return this.RedirectToAction("ApplyForOffer");
             }
 
             int offerId = int.Parse(RouteData.Values["id"].ToString());
@@ -53,39 +54,40 @@ namespace JobFinder.Web.Areas.Person.Controllers
             cv.DateUploaded = DateTime.Now;
             cv.PersonId = User.Identity.GetUserId();
             cv.JobOfferId = offerId;
-            this.data.Applications.Add(cv);
+            this.Data.Applications.Add(cv);
 
-            var offer = this.data.JobOffers.Find(offerId);
+            var offer = this.Data.JobOffers.Find(offerId);
             offer.ApplicationsCount += 1;
-            this.data.JobOffers.Update(offer);
+            this.Data.JobOffers.Update(offer);
 
             MessageViewModel message = new MessageViewModel 
             { Text = "Your application was successfull. Good luck!", Type = MessageType.Success };
-            TempData["Message"] = message;
-            return RedirectToAction("ApplyForOffer");
+            this.TempData["Message"] = message;
+            return this.RedirectToAction("ApplyForOffer");
         }
 
         public ActionResult MyApplications(int? page)
         {
             string personId = User.Identity.GetUserId();
 
-            IEnumerable<ApplicationViewModel> model = this.data.Applications.All().Where(d => d.PersonId == personId)
+            IEnumerable<ApplicationViewModel> model = this.Data.Applications.All().Where(d => d.PersonId == personId)
                 .AsQueryable().Include("Company").Select(ApplicationViewModel.FromApplication)
                 .OrderByDescending(a => a.DateUploaded);
             int pageNumber = page ?? 1;
             model = model.ToPagedList(pageNumber, PageSize);
-            return View(model);
+            return this.View(model);
         }
 
         public FileContentResult DownloadFile(int id)
         {
             string personId = User.Identity.GetUserId();
 
-            Application cv = this.data.Applications.All().FirstOrDefault(a => a.Id == id && a.PersonId == personId);
-            //string mimeType = "application/pdf";
-            //Response.AppendHeader("Content-Disposition", "inline; filename=" + cv.FileName);
-            //return File(cv.FileData, mimeType);
-            return File(cv.FileData, cv.ContentType, cv.FileName);
+            Application cv = this.Data.Applications.All().FirstOrDefault(a => a.Id == id && a.PersonId == personId);
+
+            // string mimeType = "application/pdf";
+            // Response.AppendHeader("Content-Disposition", "inline; filename=" + cv.FileName);
+            // return File(cv.FileData, mimeType);
+            return this.File(cv.FileData, cv.ContentType, cv.FileName);
         }
 
         private bool IsValidRequest(HttpPostedFileBase file)
@@ -97,34 +99,34 @@ namespace JobFinder.Web.Areas.Person.Controllers
             if (routeId == null)
             {
                 message = new MessageViewModel { Type = MessageType.Error, Text = "Select a offer" };
-                TempData["Message"] = message;
+                this.TempData["Message"] = message;
                 return false;
             }
 
             string id = routeId.ToString();
 
-            if (String.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id))
             {
                 message = new MessageViewModel { Type = MessageType.Error, Text = "Select a offer" };
-                TempData["Message"] = message;
+                this.TempData["Message"] = message;
                 return false;
             }
 
             int offerId = int.Parse(id);
-            Application doc = this.data.Applications.All().Where(d => d.JobOfferId == offerId && d.PersonId == personId).FirstOrDefault();
+            Application doc = this.Data.Applications.All().Where(d => d.JobOfferId == offerId && d.PersonId == personId).FirstOrDefault();
 
             if (doc != null)
             {
                 message = new MessageViewModel { Type = MessageType.Error, Text = "You have already applied for this offer." };
-                TempData["Message"] = message;
+                this.TempData["Message"] = message;
                 return false;
             }
 
-            JobOffer offer = this.data.JobOffers.Find(offerId);
+            JobOffer offer = this.Data.JobOffers.Find(offerId);
             if (offer == null)
             {
                 message = new MessageViewModel { Type = MessageType.Error, Text = "Job offer you are appling for doesnt exist." };
-                TempData["Message"] = message;
+                this.TempData["Message"] = message;
                 return false;
             }
 
@@ -133,7 +135,7 @@ namespace JobFinder.Web.Areas.Person.Controllers
             if (file == null)
             {
                 message = new MessageViewModel { Type = MessageType.Error, Text = "Please select a file to upload (.doc, .docx or .pdf format)." };
-                TempData["Message"] = message;
+                this.TempData["Message"] = message;
                 return false;
             }
 
@@ -141,14 +143,14 @@ namespace JobFinder.Web.Areas.Person.Controllers
             if (!allowedExtensions.Contains(extension))
             {
                 message = new MessageViewModel { Type = MessageType.Error, Text = "Please upload file in .doc, .docx or .pdf format." };
-                TempData["Message"] = message;
+                this.TempData["Message"] = message;
                 return false;
             }
 
             if (file.ContentLength > MaxFileSize)
             {
                 message = new MessageViewModel { Type = MessageType.Error, Text = "Please upload file with size less than 1 MB." };
-                TempData["Message"] = message;
+                this.TempData["Message"] = message;
                 return false;
             }
 

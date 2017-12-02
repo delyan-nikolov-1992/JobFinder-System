@@ -1,7 +1,7 @@
-﻿using System.Web.Mvc;
-
-namespace JobFinder.Web.Areas.Person
+﻿namespace JobFinder.Web.Areas.Person
 {
+    using System.Web.Mvc;
+
     public class PersonAreaRegistration : AreaRegistration 
     {
         public override string AreaName 
@@ -17,8 +17,7 @@ namespace JobFinder.Web.Areas.Person
             context.MapRoute(
                 "Person_default",
                 "Person/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
-            );
+                new { action = "Index", id = UrlParameter.Optional });
         }
     }
 }

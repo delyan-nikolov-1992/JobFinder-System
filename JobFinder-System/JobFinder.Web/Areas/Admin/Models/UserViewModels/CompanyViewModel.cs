@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
-using System.Web.Mvc;
-
-namespace JobFinder.Web.Areas.Admin.Models
+﻿namespace JobFinder.Web.Areas.Admin.Models.UserViewModels
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq.Expressions;
+    using System.Web.Mvc;
+
     public class CompanyViewModel
     {
         public static Expression<Func<JobFinder.Models.Company, CompanyViewModel>> FromCompany
@@ -41,31 +38,5 @@ namespace JobFinder.Web.Areas.Admin.Models
         public string Email { get; set; }
 
         public bool IsApproved { get; set; }
-    }
-
-    public class PersonViewModel
-    {
-        public static Expression<Func<JobFinder.Models.Person, PersonViewModel>> FromPerson
-        {
-            get
-            {
-                return c => new PersonViewModel
-                {
-                    Id = c.Id,
-                    Email = c.Email,
-                    FirstName = c.FirstName,
-                    LastName = c.LastName
-                };
-            }
-        }
-
-        [HiddenInput(DisplayValue=false)]
-        public string Id { get; set; }
-
-        public string Email { get; set; }
-
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
     }
 }
