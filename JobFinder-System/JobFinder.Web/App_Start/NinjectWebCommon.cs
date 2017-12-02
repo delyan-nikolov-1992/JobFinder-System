@@ -10,6 +10,7 @@ namespace JobFinder.Web.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
+    using Ninject.Web.Common.WebHost;
     using JobFinder.Data;
 
     public static class NinjectWebCommon 
