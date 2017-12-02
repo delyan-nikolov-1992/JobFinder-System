@@ -1,0 +1,54 @@
+﻿@model JobFinder.Web.Models.DetailsOfferViewModel
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Offer details</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Title:</h4>
+                    <h4>Company:</h4>
+                </div>
+                <div class="col-md-4">
+                    <p>@Model.Title</p>
+                    <p>@Model.CompanyName</p>
+                </div>
+                <div class="col-md-offset-10">
+                    <p class="text-muted">Views: @Model.Views</p>
+                    <p class ="text-muted">Applications: @Model.ApplicationsCount</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Description:</h4>
+                </div>
+                <div class="col-md-4">
+                    <p style="font-size:17px">@Model.Description</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Date posted:</h4>
+                </div>
+                <div class="col-md-4" style="font-size:17px">
+                    @Html.DisplayFor(o => o.DateCreated)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Location:</h4>
+                </div>
+                <div class="col-md-4">
+                    <p class="text-muted" style="font-size:17px">@Model.Town</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Business sector:</h4>
+                </div>
+                <div class="col-md-4">
+                    <p class="text-muted" style="font-size:17px">@Model.BusinessSector</p>
+                </div>
+            </div>
+        </div>
+    </div>

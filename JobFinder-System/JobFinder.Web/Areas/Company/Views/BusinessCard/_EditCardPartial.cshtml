@@ -1,0 +1,72 @@
+﻿@model JobFinder.Web.Areas.Company.Models.BussinessCardViewModel
+@using (Html.BeginForm("EditCard", "BusinessCard", new { area = "Company", id = Model.Id }, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="form-group">
+        <p class="col-lg-2 control-label text-muted"><small>Company name</small></p>
+        <div class="col-lg-10">
+            <input type="text" class="form-control" name="CompanyName" placeholder="Company name" value="@Model.CompanyName" >
+        </div>
+    </div>
+    <div class="form-group">
+        <p class="col-lg-2 control-label text-muted"><small>About us</small></p>
+        <div class="col-lg-10">
+            <textarea class="form-control" name="AboutUs" placeholder="About us">@Model.AboutUs</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <p class="col-lg-2 control-label text-muted"><small>Address</small></p>
+        <div class="col-lg-10">
+            <input type="text" class="form-control" name="Address" placeholder="Address" value="@Model.Address">            
+        </div>
+    </div>
+    <div class="form-group">
+        <p class="col-lg-2 control-label text-muted"><small>Website</small></p>
+        <div class="col-lg-10">
+            <input type="text" class="form-control" name="WebSite" placeholder="Website" value="@Model.WebSite">
+        </div>
+    </div>
+    <div class="form-group">
+        <p class="col-md-2 control-label text-muted"><small>Business sectors</small></p>
+        <span class="text-muted"><small><em>(Choose up to 3 sectors that apply to your company)</em></small></span>
+        <div class="col-md-10">
+            <select id="BusinessSectors" multiple>
+                @{
+                    IEnumerable<string> ids = Model.BusinessSectors.Select(b => b.Value);
+                    foreach (var item in (IEnumerable<SelectListItem>)TempData["Sectors"])
+                    {
+                        if (ids.Contains(item.Value))
+                        {
+                            <option value=@item.Value class="selected" style="color:#aaa">@item.Text</option>
+                        }
+                        else
+                        {
+                            <option value=@item.Value>@item.Text</option>
+                        }
+                    }
+                }
+            </select>
+            <select multiple id="selectedSectors">
+                @foreach (var item in ids)
+                {
+                    string text = Model.BusinessSectors.Where(b => b.Value == item).Select(b => b.Text).FirstOrDefault();
+                    <option value="@item">
+                        @text
+                    </option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-2">
+            <button class="btn btn-default">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+    
+    <script>
+        $('#selectedSectors option').each(function (index, value) {
+            var inp = $('<input>').attr({ 'name': "BusinessSectors", 'value': this.value });
+            $(this).append(inp);
+        })
+    </script>
+}
