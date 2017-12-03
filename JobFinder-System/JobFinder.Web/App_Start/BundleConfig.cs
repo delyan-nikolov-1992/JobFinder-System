@@ -73,8 +73,9 @@
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/highcharts").Include(
-                "~/Scripts/highcharts/highcharts.js",
-                "~/Scripts/highcharts/exporting.js"));
+                "~/Scripts/highcharts/highstock.js",
+                "~/Scripts/highcharts/exporting.js",
+                "~/Scripts/highcharts/no-data-to-display.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
                         "~/Scripts/utils.js"));

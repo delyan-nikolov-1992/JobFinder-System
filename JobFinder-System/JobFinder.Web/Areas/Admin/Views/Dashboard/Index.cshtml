@@ -13,6 +13,9 @@
 	<script>
 		var data = util.toJS(@(Html.ToJson(Model)));
 		Highcharts.chart('container', {
+			lang: {
+				noData: "No data to display!"
+			},
 			chart: {
 				plotBackgroundColor: null,
 				plotBorderWidth: null,
@@ -20,7 +23,7 @@
 				type: 'pie'
 			},
 			title: {
-				text: 'Browser market shares January, 2015 to May, 2015'
+				text: 'Job offers by sectors - December, 2017'
 			},
 			credits: {
 				enabled: false
@@ -42,7 +45,7 @@
 				}
 			},
 			series: [{
-				name: 'Brands',
+				name: 'Sector',
 				colorByPoint: true,
 				data: data
 			}]
