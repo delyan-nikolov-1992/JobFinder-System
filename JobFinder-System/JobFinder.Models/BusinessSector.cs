@@ -16,7 +16,7 @@
 
         [Required]
         [Index(IsUnique = true)]
-        [MaxLength(25)]
+        [MaxLength(60)]
         public string Name { get; set; }
 
         public virtual ICollection<Company> Companies { get; set; }

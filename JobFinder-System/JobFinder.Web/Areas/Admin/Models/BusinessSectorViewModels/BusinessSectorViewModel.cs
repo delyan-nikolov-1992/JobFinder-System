@@ -23,7 +23,7 @@
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
-        [MaxLength(25)]
+        [MaxLength(60)]
         public string Name { get; set; }
     }
 }

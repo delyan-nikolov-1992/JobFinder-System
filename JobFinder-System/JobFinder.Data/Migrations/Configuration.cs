@@ -6,9 +6,12 @@ namespace JobFinder.Data.Migrations
     using JobFinder.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
+    using System;
 
     internal sealed class Configuration : DbMigrationsConfiguration<JobFinder.Data.JobFinderDbContext>
     {
+        private static Random rnd = new Random();
+
         public Configuration()
         {
             this.AutomaticMigrationsEnabled = true;
@@ -17,6 +20,8 @@ namespace JobFinder.Data.Migrations
 
         protected override void Seed(JobFinder.Data.JobFinderDbContext context)
         {
+            context.Configuration.AutoDetectChangesEnabled = false;
+
             // Add roles
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
@@ -281,12 +286,12 @@ namespace JobFinder.Data.Migrations
                 new JobOfferPerCriteria
                 {
                     Name = "Insurance",
-                    Count = 
+                    Count = 333
                 },
                 new JobOfferPerCriteria
                 {
                     Name = "IT - Administration and sales",
-                    Count = 333
+                    Count = 856
                 },
                 new JobOfferPerCriteria
                 {
@@ -440,6 +445,8 @@ namespace JobFinder.Data.Migrations
             }
 
             // Create admin, company and person
+            var companies = new List<Company>();
+
             if (!context.Users.Any(u => u.UserName == "admin@admin.bg"))
             {
                 var store = new UserStore<User>(context);
@@ -468,6 +475,7 @@ namespace JobFinder.Data.Migrations
                         PhoneNumber = "0888888888"
                     };
 
+                    companies.Add(company);
                     manager.Create(company, "123123");
                     manager.AddToRole(company.Id, "Company");
                 }
@@ -485,6 +493,7 @@ namespace JobFinder.Data.Migrations
                         PhoneNumber = "0888888666"
                     };
 
+                    companies.Add(company);
                     manager.Create(company, "123123");
                     manager.AddToRole(company.Id, "Company");
                 }
@@ -507,8 +516,36 @@ namespace JobFinder.Data.Migrations
             // Create job offers
             if (!context.JobOffers.Any())
             {
+                foreach (var sector in jobOffersPerBusinessSector)
+                {
+                    for (int i = 0; i < sector.Count; i++)
+                    {
+                        context.JobOffers.Add(new JobOffer
+                        {
+                            Title = string.Format("{0} #{1}", sector.Name, i),
+                            Description = string.Format(
+                                "Amazing job from sector: {0}, which is #{1} of {2} offers in this sector",
+                                sector.Name,
+                                i,
+                                sector.Count),
+                            DateCreated = DateTime.Now.AddDays(i * -1),
+                            IsActive = true,
+                            Company = companies[rnd.Next(companies.Count())],
+                            Town = towns[rnd.Next(towns.Count())],
+                            BusinessSector = businessSectors.Single(x => x.Name == sector.Name)
+                        });
 
+                        if (i % 100 == 0)
+                        {
+                            context.SaveChanges();
+                        }
+                    }
+
+                    context.SaveChanges();
+                }
             }
+
+            context.Configuration.AutoDetectChangesEnabled = true;
         }
 
         private class JobOfferPerCriteria
