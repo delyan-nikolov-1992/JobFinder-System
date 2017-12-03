@@ -71,6 +71,13 @@
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/highcharts").Include(
+                "~/Scripts/highcharts/highcharts.js",
+                "~/Scripts/highcharts/exporting.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/custom").Include(
+                        "~/Scripts/utils.js"));
         }
     }
 }

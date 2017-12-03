@@ -208,10 +208,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BusinessSectorController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\OfferController.cs" />
     <Compile Include="Areas\Admin\Controllers\TownController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\BusinessSectorViewModels\BusinessSectorViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\DashboardModels\DashboardViewModel.cs" />
     <Compile Include="Areas\Admin\Models\TownViewModels\TownViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UserViewModels\PersonViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UserViewModels\CompanyViewModel.cs" />
@@ -225,6 +227,7 @@
     <Compile Include="Areas\Company\Models\JobOfferViewModels\ListOfferViewModel.cs" />
     <Compile Include="Areas\Person\Controllers\ApplyController.cs" />
     <Compile Include="Areas\Person\Controllers\FollowedOffersController.cs" />
+    <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Models\AccountViewModels\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Models\AccountViewModels\ExternalLoginListViewModel.cs" />
     <Compile Include="Models\AccountViewModels\ForgotPasswordViewModel.cs" />
@@ -508,9 +511,12 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\highcharts\exporting.js" />
+    <Content Include="Scripts\highcharts\highcharts.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
@@ -526,6 +532,7 @@
     <Content Include="Scripts\kendo\kendo.all.min.js" />
     <Content Include="Scripts\kendo\kendo.aspnetmvc.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\utils.js" />
     <Content Include="Views\Shared\BussinessCard.cshtml" />
     <Content Include="Areas\Company\Views\BusinessCard\_EditCardPartial.cshtml" />
     <Content Include="Content\kendo\images\kendoui.ttf" />
