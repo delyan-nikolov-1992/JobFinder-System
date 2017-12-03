@@ -27,7 +27,7 @@
             }
 
             var model = this.Data.JobOffers.All().Where(o => o.IsActive).GroupBy(o => o.BusinessSectorId)
-                .Select(o => new DashboardViewModel { Name = o.FirstOrDefault().Title, Y = o.Count() })
+                .Select(o => new DashboardViewModel { Name = o.FirstOrDefault().BusinessSector.Name, Y = o.Count() })
                 .ToList()
                 .Select(o => new DashboardViewModel { Name = o.Name, Y = Math.Round(Convert.ToDouble((o.Y / jobOffersCount)) * 100, 2) });
 
