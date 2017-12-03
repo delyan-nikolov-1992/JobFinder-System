@@ -1,12 +1,12 @@
 namespace JobFinder.Data.Migrations
 {
+    using System;
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
     using System.Linq;
     using JobFinder.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using System;
 
     internal sealed class Configuration : DbMigrationsConfiguration<JobFinderDbContext>
     {
@@ -514,7 +514,7 @@ namespace JobFinder.Data.Migrations
             // Create job offers
             if (!context.JobOffers.Any())
             {
-                context = RecreateContext(context);
+                context = this.RecreateContext(context);
 
                 foreach (var sector in jobOffersPerBusinessSector)
                 {
@@ -537,11 +537,11 @@ namespace JobFinder.Data.Migrations
 
                         if ((i + 1) % 100 == 0)
                         {
-                            context = RecreateContext(context);
+                            context = this.RecreateContext(context);
                         }
                     }
 
-                    context = RecreateContext(context);
+                    context = this.RecreateContext(context);
                 }
             }
 
