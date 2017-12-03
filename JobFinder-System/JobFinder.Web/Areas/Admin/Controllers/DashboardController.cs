@@ -27,9 +27,7 @@
                 new DashboardViewModel
                 {
 					Name = "Chrome",
-					Y = 24.03,
-					Sliced = true,
-					Selected =true
+					Y = 24.03
 				}, 
                 new DashboardViewModel
                 {

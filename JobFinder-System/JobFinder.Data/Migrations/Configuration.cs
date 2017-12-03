@@ -58,14 +58,15 @@ namespace JobFinder.Data.Migrations
                     new Town { Name = "Haskovo" },
                     new Town { Name = "Pernik" },
                     new Town { Name = "Blagoevgrad" },
+                    new Town { Name = "Kardzhali" },
                     new Town { Name = "Pazardjik" });
             }
 
-            BusinessSector sports = new BusinessSector { Name = "Sports" };
-            BusinessSector security = new BusinessSector { Name = "Scurity" };
-            BusinessSector travel = new BusinessSector { Name = "Travel" };
-
             // Add business sectors
+            var sports = new BusinessSector { Name = "Sports" };
+            var security = new BusinessSector { Name = "Security" };
+            var travel = new BusinessSector { Name = "Travel" };
+
             if (!context.BusinessSectors.Any())
             {
                 context.BusinessSectors.AddOrUpdate(
@@ -95,7 +96,7 @@ namespace JobFinder.Data.Migrations
                     sports,
                     security,
                     travel);
-            }           
+            }
 
             // Create admin, company and person
             if (!context.Users.Any(u => u.UserName == "admin@admin.bg"))
@@ -103,13 +104,19 @@ namespace JobFinder.Data.Migrations
                 var store = new UserStore<User>(context);
                 var manager = new UserManager<User>(store);
 
-                var user = new Person { UserName = "admin@admin.bg", Email = "admin@admin.bg", FirstName = "Admin", LastName = "Admin" };              
-                manager.Create(user, "adminn");
+                var user = new Person
+                {
+                    UserName = "admin@admin.bg",
+                    Email = "admin@admin.bg",
+                    FirstName = "Admin",
+                    LastName = "Admin"
+                };
+                manager.Create(user, "123123");
                 manager.AddToRole(user.Id, "Admin");
 
                 if (!context.Companies.Any(c => c.Bulstat == "1234567891234"))
                 {
-                    Company company = new Company
+                    var company = new Company
                     {
                         Bulstat = "1234567891234",
                         Email = "aaaaaa@abv.bg",
@@ -120,13 +127,13 @@ namespace JobFinder.Data.Migrations
                         PhoneNumber = "0888888888"
                     };
 
-                    manager.Create(company, "aaaaaa");
+                    manager.Create(company, "123123");
                     manager.AddToRole(company.Id, "Company");
                 }
 
                 if (!context.Companies.Any(c => c.Bulstat == "2234567891234"))
                 {
-                    Company company = new Company
+                    var company = new Company
                     {
                         Bulstat = "2234567891234",
                         Email = "company@abv.bg",
@@ -137,13 +144,13 @@ namespace JobFinder.Data.Migrations
                         PhoneNumber = "0888888666"
                     };
 
-                    manager.Create(company, "company");
+                    manager.Create(company, "123123");
                     manager.AddToRole(company.Id, "Company");
                 }
 
                 if (!context.People.Any(p => p.Email == "person@abv.bg"))
                 {
-                    Person person = new Person
+                    var person = new Person
                     {
                         Email = "person@abv.bg",
                         FirstName = "Petar",
@@ -151,7 +158,7 @@ namespace JobFinder.Data.Migrations
                         UserName = "person@abv.bg"
                     };
 
-                    manager.Create(person, "person");
+                    manager.Create(person, "123123");
                     manager.AddToRole(person.Id, "Person");
                 }
             }
