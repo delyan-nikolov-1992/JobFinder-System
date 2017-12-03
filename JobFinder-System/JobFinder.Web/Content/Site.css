@@ -27,11 +27,6 @@ textarea {
     max-width: 280px;
 }
 
-#BusinessSectors, #selectedSectors {
-    width: 200px;
-    min-height: 100px;
-}
-
 .offerHeader {
     font-size: 25px;
     padding: 0;
@@ -83,7 +78,7 @@ footer p {
     background: linear-gradient(to bottom,  #ffffff 0%,#f7f7f7 56%,#e8e8e8 100%); 
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e8e8e8',GradientType=0 ); 
     border-radius: 10px;
-    width: 200px;
+    max-width: 600px;
     height: 180px;
 }
 

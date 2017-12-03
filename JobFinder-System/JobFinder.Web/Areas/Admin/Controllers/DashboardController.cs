@@ -1,10 +1,12 @@
 ﻿namespace JobFinder.Web.Areas.Admin.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using JobFinder.Data;
     using JobFinder.Web.Controllers;
     using JobFinder.Web.Areas.Admin.Models.DashboardModels;
+    using System;
 
     [Authorize(Roles = "Admin")]
     public class DashboardController : BaseController
@@ -17,39 +19,17 @@
         // GET: Admin/Dashboard
         public ActionResult Index()
         {
-            var model = new List<DashboardViewModel>
+            var jobOffersCount = this.Data.JobOffers.All().Where(o => o.IsActive).Count();
+
+            if (jobOffersCount == 0)
             {
-                new DashboardViewModel
-                {
-					Name = "IE",
-					Y = 56.33
-				}, 
-                new DashboardViewModel
-                {
-					Name = "Chrome",
-					Y = 24.03
-				}, 
-                new DashboardViewModel
-                {
-					Name = "Firefox",
-					Y = 10.38
-				},
-                new DashboardViewModel
-                {
-					Name = "Safari",
-					Y = 4.77
-				},
-                new DashboardViewModel
-                {
-					Name = "Opera",
-					Y = 0.91
-				},
-                new DashboardViewModel
-                {
-					Name = "Other",
-					Y = 0.2
-				}
-            };
+                return this.View();
+            }
+
+            var model = this.Data.JobOffers.All().Where(o => o.IsActive).GroupBy(o => o.BusinessSectorId)
+                .Select(o => new DashboardViewModel { Name = o.FirstOrDefault().Title, Y = o.Count() })
+                .ToList()
+                .Select(o => new DashboardViewModel { Name = o.Name, Y = Math.Round(Convert.ToDouble((o.Y / jobOffersCount)) * 100, 2) });
 
             return this.View(model);
         }

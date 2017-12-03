@@ -159,7 +159,7 @@ namespace JobFinder.Data.Migrations
                 }
             };
 
-            var towns = jobOffersPerTown.Select(x => new Town { Name = x.Name }).ToArray();
+            var towns = jobOffersPerTown.Select(t => new Town { Name = t.Name }).ToArray();
 
             if (!context.Towns.Any())
             {
@@ -433,7 +433,7 @@ namespace JobFinder.Data.Migrations
                 }
             };
 
-            var businessSectors = jobOffersPerBusinessSector.Select(x => new BusinessSector { Name = x.Name }).ToArray();
+            var businessSectors = jobOffersPerBusinessSector.Select(s => new BusinessSector { Name = s.Name }).ToArray();
 
             if (!context.BusinessSectors.Any())
             {
@@ -532,7 +532,7 @@ namespace JobFinder.Data.Migrations
                             IsActive = true,
                             CompanyId = companies[rnd.Next(companies.Count())].Id,
                             TownId = towns[rnd.Next(towns.Count())].Id,
-                            BusinessSectorId = businessSectors.Single(x => x.Name == sector.Name).Id
+                            BusinessSectorId = businessSectors.Single(s => s.Name == sector.Name).Id
                         });
 
                         if ((i + 1) % 100 == 0)
