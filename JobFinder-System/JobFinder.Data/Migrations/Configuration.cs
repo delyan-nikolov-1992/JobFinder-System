@@ -8,7 +8,7 @@ namespace JobFinder.Data.Migrations
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<JobFinder.Data.JobFinderDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<JobFinderDbContext>
     {
         private static Random rnd = new Random();
 
@@ -18,10 +18,8 @@ namespace JobFinder.Data.Migrations
             this.AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(JobFinder.Data.JobFinderDbContext context)
+        protected override void Seed(JobFinderDbContext context)
         {
-            context.Configuration.AutoDetectChangesEnabled = false;
-
             // Add roles
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
@@ -513,6 +511,8 @@ namespace JobFinder.Data.Migrations
                 }
             }
 
+            context = RecreateContext(context);
+
             // Create job offers
             if (!context.JobOffers.Any())
             {
@@ -530,22 +530,34 @@ namespace JobFinder.Data.Migrations
                                 sector.Count),
                             DateCreated = DateTime.Now.AddDays(i * -1),
                             IsActive = true,
-                            Company = companies[rnd.Next(companies.Count())],
-                            Town = towns[rnd.Next(towns.Count())],
-                            BusinessSector = businessSectors.Single(x => x.Name == sector.Name)
+                            CompanyId = companies[rnd.Next(companies.Count())].Id,
+                            TownId = towns[rnd.Next(towns.Count())].Id,
+                            BusinessSectorId = businessSectors.Single(x => x.Name == sector.Name).Id
                         });
 
-                        if (i % 100 == 0)
+                        if ((i + 1) % 100 == 0)
                         {
-                            context.SaveChanges();
+                            context = RecreateContext(context);
                         }
                     }
 
-                    context.SaveChanges();
+                    context = RecreateContext(context);
                 }
             }
 
             context.Configuration.AutoDetectChangesEnabled = true;
+            context.Configuration.ValidateOnSaveEnabled = true;
+        }
+
+        private JobFinderDbContext RecreateContext(JobFinderDbContext context)
+        {
+            context.SaveChanges();
+            context.Dispose();
+            context = JobFinderDbContext.Create();
+            context.Configuration.AutoDetectChangesEnabled = false;
+            context.Configuration.ValidateOnSaveEnabled = false;
+
+            return context;
         }
 
         private class JobOfferPerCriteria
