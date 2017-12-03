@@ -511,11 +511,11 @@ namespace JobFinder.Data.Migrations
                 }
             }
 
-            context = RecreateContext(context);
-
             // Create job offers
             if (!context.JobOffers.Any())
             {
+                context = RecreateContext(context);
+
                 foreach (var sector in jobOffersPerBusinessSector)
                 {
                     for (int i = 0; i < sector.Count; i++)
