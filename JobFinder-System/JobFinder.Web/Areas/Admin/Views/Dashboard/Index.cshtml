@@ -7,13 +7,13 @@
 
 <div>
 	<ul class="nav nav-pills">
-		<li class="active"><a href="#">Offers by sector</a></li>
-		<li id="offersSector"><a href="#">Menu 1</a></li>
+		<li id="offersSector" class="active"><a href="#">Offers by sector</a></li>
+		<li id="offersTown"><a href="#">Offers by town</a></li>
 		<li><a href="#">Menu 2</a></li>
 		<li><a href="#">Menu 3</a></li>
 	</ul>
 </div>
-<div id="container"></div>
+<div id="container" style="height: 500px;"></div>
 
 @section Scripts {
 	@Scripts.Render("~/bundles/highcharts")
@@ -60,21 +60,95 @@
 			});
 		}
 
+		function offersByTown(data) {
+			debugger;
+			Highcharts.chart('container', {
+				lang: {
+					noData: 'No data to display!'
+				},
+				chart: {
+					type: 'bar'
+				},
+				title: {
+					text: 'Job offers by towns'
+				},
+				subtitle: {
+					text: 'Source: <a target="_blank" href="http://www.nsi.bg/en/content/6441/statistical-regions-district">National statistical institute</a>'
+				},
+				xAxis: {
+					categories: data.categories,
+					title: {
+						text: 'Towns'
+					}
+				},
+				yAxis: {
+					min: 0,
+					title: {
+						text: 'Job offers',
+						align: 'high'
+					},
+					labels: {
+						overflow: 'justify'
+					}
+				},
+				plotOptions: {
+					bar: {
+						dataLabels: {
+							enabled: true
+						}
+					}
+				},
+				legend: {
+					layout: 'vertical',
+					align: 'right',
+					verticalAlign: 'top',
+					x: -80,
+					y: 0,
+					floating: true,
+					borderWidth: 1,
+					backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+					shadow: true
+				},
+				credits: {
+					enabled: false
+				},
+				series: data.series
+			});
+		}
+
 		function changeActiveElement(element) {
 			$('.nav-pills > li.active').removeClass('active');
 			element.addClass('active');
 		}
 
-		function getOffersSector(element) {
-			$.post('@Url.Action("Dido", "Dashboard")',
+		function changeContainerHeight(height) {
+			$('#container').height(height);
+		}
+
+		function getOffersSector(element, height) {
+			$.post('@Url.Action("OffersBySector", "Dashboard")',
                 function (data) {
                 	changeActiveElement(element);
+                	changeContainerHeight(height);
                 	offersBySector(JSON.parse(data));
                 });
 		}
 
+		function getOffersTown(element, height) {
+			$.post('@Url.Action("OffersByTown", "Dashboard")',
+                function (data) {
+                	changeActiveElement(element);
+                	changeContainerHeight(height);
+                	offersByTown(JSON.parse(data));
+                });
+		}
+
 		$('#offersSector').click(function () {
-			getOffersSector($(this));
+			getOffersSector($(this), 500);
+		});
+
+		$('#offersTown').click(function () {
+			getOffersTown($(this), 2000);
 		});
 
 		var data = util.toJS(@(Html.ToJson(Model)));

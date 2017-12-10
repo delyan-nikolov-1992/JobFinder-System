@@ -528,7 +528,7 @@ namespace JobFinder.Data.Migrations
                                 sector.Name,
                                 i,
                                 sector.Count),
-                            DateCreated = DateTime.Now.AddDays(i * -1),
+                            DateCreated = DateTime.Now.AddMonths(i * -1),
                             IsActive = true,
                             CompanyId = companies[rnd.Next(companies.Count())].Id,
                             TownId = towns[rnd.Next(towns.Count())].Id,

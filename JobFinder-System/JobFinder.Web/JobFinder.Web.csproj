@@ -213,7 +213,11 @@
     <Compile Include="Areas\Admin\Controllers\TownController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\BusinessSectorViewModels\BusinessSectorViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\DashboardModels\ColumnViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\DashboardModels\DashboardColumnViewModel.cs" />
     <Compile Include="Areas\Admin\Models\DashboardModels\DashboardViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\DashboardModels\OfferViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\DashboardModels\TownViewModel.cs" />
     <Compile Include="Areas\Admin\Models\TownViewModels\TownViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UserViewModels\PersonViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UserViewModels\CompanyViewModel.cs" />
