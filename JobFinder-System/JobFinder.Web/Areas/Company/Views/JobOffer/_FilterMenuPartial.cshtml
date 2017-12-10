@@ -1,7 +1,9 @@
 ﻿@using (Html.BeginForm("GetOffers", "JobOffer", FormMethod.Get, new { @class = "form-horizontal", id = "filter", role = "form" }))
 {
     <div class="form-group">
-        <label class="col-lg-2 control-label">Filter by</label>
+        <div class="col-lg-1">
+            <label class="control-label">Filter by</label>
+        </div>
         <div class="col-lg-10">
             <div class="radio row">
                     @if (TempData["onlyActive"] != null)
@@ -9,40 +11,44 @@
                         var active = (bool)TempData["onlyActive"];
                         if (active)
                         {
-                            <div class="col-md-2">
-                                <label>Active</label>
-                                <input type="radio" name="onlyActive" id="active" value="true" checked="">
+                            <div class="col-md-1">
+                                <label class="radio-inline">
+                                    <input type="radio" name="onlyActive" id="active" value="true" checked="">Active
+                                </label>
                             </div>
-                            <div class="col-md-2">
-                                <label>Expired</label>
-                                <input type="radio" name="onlyActive" id="expired" value="false">
-                            </div>                           
-
+                            <div class="col-md-1">
+                                <label class="radio-inline">
+                                    <input type="radio" name="onlyActive" id="expired" value="false">Expired
+                                </label>
+                            </div>
                         }
                         else
                         {
-                            <div class="col-md-2">
-                                <label>Active</label>
-                                <input type="radio" name="onlyActive" id="active" value="true">
+                            <div class="col-md-1">
+                                <label class="radio-inline">
+                                    <input type="radio" name="onlyActive" id="active" value="true">Active
+                                </label>
                             </div>
-                            <div class="col-md-2">
-                                <label>Expired</label>
-                                <input type="radio" name="onlyActive" id="expired" value="false" checked="">
-                            </div>                           
+                            <div class="col-md-1">
+                                <label class="radio-inline">
+                                    <input type="radio" name="onlyActive" id="expired" value="false" checked="">Expired
+                                </label>
+                            </div>
                         }
 
                     }
                     else
                     {
-                        <div class="col-md-2">
-                            <label>Active</label>
-                            <input type="radio" name="onlyActive" id="active" value="true">                            
+                        <div class="col-md-1">
+                            <label class="radio-inline">
+                                <input type="radio" name="onlyActive" id="active" value="true">Active
+                            </label>                            
                         </div>
-                        <div class="col-md-2">
-                            <label>Expired</label>
-                            <input type="radio" name="onlyActive" id="expired" value="false">
+                        <div class="col-md-1">
+                            <label class="radio-inline">
+                                <input type="radio" name="onlyActive" id="expired" value="false">Expired
+                            </label>
                         </div>
-                        
                     }
             </div>
         </div>

@@ -16,7 +16,7 @@
     [Authorize(Roles = "Company")]
     public class JobOfferController : BaseController
     {
-        private const int OffersPerPage = 5;
+        private const int OffersPerPage = 10;
 
         public JobOfferController(IJobFinderData data) : base(data)
         {            

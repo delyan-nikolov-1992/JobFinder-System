@@ -1,55 +1,60 @@
 ﻿@model PagedList.IPagedList<JobFinder.Web.Models.OfferViewModels.SearchResultOfferViewModel>
 
-<h2>Search for job offers</h2>
 <div class="row">
-<div class="searchForm">
-    @using (Html.BeginForm("OfferSearchResults", "SearchOffer", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
-    {
-        <div class="row form-group">
-            <div class="col-lg-offset-5">
-                <label>Select business sectors:</label>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-lg-offset-2">
-                    <select id="BusinessSectors" multiple class="form-control">
-                        @foreach (var item in (IEnumerable<SelectListItem>)TempData["BusinessSectors"])
-                        {
-                            <option value=@item.Value>@item.Text</option>
-                        }
-                    </select>
+    <div class="default-form">
+        <div>
+            <h4>Search for job offers</h4>
+        </div>
+        @using (Html.BeginForm("OfferSearchResults", "SearchOffer", FormMethod.Get, new { @class = "form-horizontal", role = "form" }))
+        {
+            <div class="row form-group">
+                <div class="row">
+                    <div class="col-lg-offset-1">
+                        <label style="padding-left:15px">Select business sectors:</label>
+                    </div>
                 </div>
-                <div class="col-lg-4">
-                    <select multiple id="selectedSectors" class="form-control"></select>
+                <div class="row">
+                    <div class="col-lg-4 col-lg-offset-1">
+                        <select id="BusinessSectors" multiple class="form-control">
+                            @foreach (var item in (IEnumerable<SelectListItem>)TempData["BusinessSectors"])
+                            {
+                                <option value=@item.Value>@item.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-lg-4">
+                        <select multiple id="selectedSectors" class="form-control"></select>
+                    </div>
                 </div>
             </div>
-        </div>
-        <br />
-        <div class="row form-group">
-            <div class="col-lg-offset-3">
-                <label>Select city: </label>
-                @Html.DropDownList("Town", (IEnumerable<SelectListItem>)TempData["Towns"], String.Empty, new { @class = "form-control"})
+            <br />
+            <div class="row form-group">
+                <div class="col-lg-offset-1">
+                    <label>Select city: </label>
+                    @Html.DropDownList("Town", (IEnumerable<SelectListItem>)TempData["Towns"], String.Empty, new { @class = "form-control" })
+                </div>
             </div>
-        </div>
-        <br />
-        <div class="row form-group">
-            <div class="col-lg-offset-3">
-                <label>Search by word: </label>
-                <input type="text" name="Word" class="form-control" placeholder="Search by keyword" />
+            <br />
+            <div class="row form-group">
+                <div class="col-lg-offset-1">
+                    <label>Search by word: </label>
+                    <input type="text" name="Word" class="form-control" placeholder="Search by keyword" />
+                </div>
             </div>
-        </div>
-        <div class="row form-group">
-            <div class="col-lg-10 col-lg-offset-4">
-                <button type="submit" class="btn btn-default">Search</button>
+            <div class="row form-group">
+                <div class="col-lg-offset-1">
+                    <button type="submit" class="btn btn-default">Search</button>
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
-</div>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="@Url.Content("~/Scripts/controls.js")"></script>
     <script>
         Controls.multipleListControl('BusinessSectors', 'Sectors', 'selectedSectors');
+
+        //Scrollbar.init(document.querySelector('#magi'));
     </script>
 }

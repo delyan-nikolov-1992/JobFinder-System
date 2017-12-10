@@ -533,6 +533,7 @@
     <Content Include="Scripts\kendo\kendo.all.min.js" />
     <Content Include="Scripts\kendo\kendo.aspnetmvc.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\smooth-scrollbar\smooth-scrollbar.js" />
     <Content Include="Scripts\utils.js" />
     <Content Include="Views\Shared\BussinessCard.cshtml" />
     <Content Include="Areas\Company\Views\BusinessCard\_EditCardPartial.cshtml" />

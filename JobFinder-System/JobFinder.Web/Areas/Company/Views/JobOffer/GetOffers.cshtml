@@ -4,20 +4,20 @@
     ViewBag.Title = "Offers";
 }
 
-@Html.Partial("_FilterMenuPartial")
+<div class="default-form">
+    @Html.Partial("_FilterMenuPartial")
 
-
-@if (Model.Count() == 0)
-{
-    <div>No job offers found.</div>
-}
-else
-{    
-    <ul>
-        @foreach (var offer in Model)
+    @if (Model.Count() == 0)
+    {
+        <div>No job offers found.</div>
+    }
+    else
+    {
+        <ul class="company-offers-list">
+            @foreach (var offer in Model)
         {
-            <li>
-                @{ string classToAdd = String.Empty;
+        <li>
+            @{ string classToAdd = String.Empty;
                     string filePath = String.Empty;
                     if (offer.IsActive)
                     {
@@ -29,22 +29,23 @@ else
                         classToAdd = "row alert-danger";
                         filePath = "expired.png";
                     }
-                }
-                <div class="@classToAdd">
-                    <div class="col-lg-3">
-                        @Html.ActionLink(offer.Title, "OfferDetails", "JobOffer", new { id = offer.Id }, new { @class = "btn btn-link" })
-                    </div>
-                    <div class="col-lg-4">
-                        <span class="text-muted"><em>@Html.DisplayFor(m => offer.DateCreated)</em></span>
-                    </div>
-                    <div class="col-lg-offset-10">
-                        <img src="~/Files/@filePath" width="20" height="20" />
-                    </div>
+            }
+            <div class="@classToAdd">
+                <div class="col-lg-5">
+                    @Html.ActionLink(offer.Title, "OfferDetails", "JobOffer", new { id = offer.Id }, new { @class = "btn btn-link" })
                 </div>
-            </li>
+                <div class="col-lg-5">
+                    <span class="text-muted"><em>@Html.DisplayFor(m => offer.DateCreated)</em></span>
+                </div>
+                <div class="col-lg-offset-10">
+                    <img src="~/Files/@filePath" width="20" height="20" />
+                </div>
+            </div>
+        </li>
         }
-    </ul>
-} 
+        </ul>
+    }
+</div>
 
 @section pager {
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount

@@ -77,6 +77,9 @@
                 "~/Scripts/highcharts/exporting.js",
                 "~/Scripts/highcharts/no-data-to-display.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/smooth-scrollbar").Include(
+                "~/Scripts/smooth-scrollbar/smooth-scrollbar.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
                         "~/Scripts/utils.js"));
         }
