@@ -70,6 +70,29 @@
             return this.Json(this.ToJson(model));
         }
 
+        [HttpPost]
+        public ActionResult OffersByType()
+        {
+            var permanentOffers = this.Data.JobOffers.All()
+                .Where(o => o.IsActive && (o.IsPermanent == null || o.IsPermanent == true)).Count();
+            var temporaryOffers = this.Data.JobOffers.All()
+                .Where(o => o.IsActive && (o.IsPermanent == null || o.IsPermanent == false)).Count();
+            var fullTimeOffers = this.Data.JobOffers.All()
+                .Where(o => o.IsActive && (o.IsFullTime == null || o.IsFullTime == true)).Count();
+            var partTimeOffers = this.Data.JobOffers.All()
+                .Where(o => o.IsActive && (o.IsFullTime == null || o.IsFullTime == false)).Count();
+
+            var model = new List<ColumnViewModel>
+            {
+                new ColumnViewModel { Name = "Permanent", Data = new[] { permanentOffers } },
+                new ColumnViewModel { Name = "Temporary", Data = new[] { temporaryOffers } },
+                new ColumnViewModel { Name = "Full Time", Data = new[] { fullTimeOffers } },
+                new ColumnViewModel { Name = "Part Time", Data = new[] { partTimeOffers } }
+            };
+
+            return this.Json(this.ToJson(model));
+        }
+
         private IEnumerable<DashboardViewModel> GetOffersBySector()
         {
             var jobOffersCount = this.Data.JobOffers.All().Where(o => o.IsActive).Count();

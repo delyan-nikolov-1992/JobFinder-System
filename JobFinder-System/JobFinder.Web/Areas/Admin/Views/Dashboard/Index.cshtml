@@ -9,8 +9,7 @@
 	<ul class="nav nav-pills">
 		<li id="offersSector" class="active"><a href="#">Offers by sector</a></li>
 		<li id="offersTown"><a href="#">Offers by town</a></li>
-		<li><a href="#">Menu 2</a></li>
-		<li><a href="#">Menu 3</a></li>
+		<li id="offersType"><a href="#">Offers by type</a></li>
 	</ul>
 </div>
 <div id="container" style="height: 500px;"></div>
@@ -61,7 +60,6 @@
 		}
 
 		function offersByTown(data) {
-			debugger;
 			Highcharts.chart('container', {
 				lang: {
 					noData: 'No data to display!'
@@ -116,6 +114,49 @@
 			});
 		}
 
+		function offersByType(data) {
+			Highcharts.chart('container', {
+				lang: {
+					noData: 'No data to display!'
+				},
+				chart: {
+					type: 'column'
+				},
+				title: {
+					text: 'Job offers by types'
+				},
+				xAxis: {
+					labels: {
+						enabled: false
+					}
+				},
+				yAxis: {
+					min: 0,
+					title: {
+						text: 'Number of offers'
+					}
+				},
+				tooltip: {
+					headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+					pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+						'<td style="padding:0"><b>{point.y}</b></td></tr>',
+					footerFormat: '</table>',
+					shared: true,
+					useHTML: true
+				},
+				plotOptions: {
+					column: {
+						pointPadding: 0.2,
+						borderWidth: 0
+					}
+				},
+				credits: {
+					enabled: false
+				},
+				series: data
+			});
+		}
+
 		function changeActiveElement(element) {
 			$('.nav-pills > li.active').removeClass('active');
 			element.addClass('active');
@@ -143,12 +184,25 @@
                 });
 		}
 
+		function getOffersType(element, height) {
+			$.post('@Url.Action("OffersByType", "Dashboard")',
+                function (data) {
+                	changeActiveElement(element);
+                	changeContainerHeight(height);
+                	offersByType(JSON.parse(data));
+                });
+		}
+
 		$('#offersSector').click(function () {
 			getOffersSector($(this), 500);
 		});
 
 		$('#offersTown').click(function () {
 			getOffersTown($(this), 2000);
+		});
+
+		$('#offersType').click(function () {
+			getOffersType($(this), 400);
 		});
 
 		var data = util.toJS(@(Html.ToJson(Model)));
