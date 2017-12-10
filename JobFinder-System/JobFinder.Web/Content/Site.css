@@ -213,7 +213,8 @@ ul.pagination li.active a {
     font-weight: bold;
 }
 
-.default-panel p {
+.default-panel p,
+.default-panel .tag-title {
     margin: 0 30px 10px 40px;
 }
 
