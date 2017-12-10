@@ -30,6 +30,10 @@
 
         public int ApplicationsCount { get; set; }
 
+        public bool? IsFullTime { get; set; }
+
+        public bool? IsPermanent { get; set; }
+
         public string CompanyId { get; set; }
 
         public virtual Company Company { get; set; }

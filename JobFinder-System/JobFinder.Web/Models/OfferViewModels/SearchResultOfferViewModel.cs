@@ -17,7 +17,9 @@
                     DateCreated = o.DateCreated,
                     Town = o.Town.Name,
                     CompanyId = o.CompanyId,
-                    CompanyName = o.Company.CompanyName
+                    CompanyName = o.Company.CompanyName,
+                    IsFullTime = o.IsFullTime,
+                    IsPermanent = o.IsPermanent
                 };
             }
         }
@@ -33,5 +35,9 @@
         public string CompanyId { get; set; }
 
         public string CompanyName { get; set; }
+
+        public bool? IsFullTime { get; set; }
+
+        public bool? IsPermanent { get; set; }
     }
 }

@@ -29,9 +29,42 @@
             </div>
             <br />
             <div class="row form-group">
-                <div class="col-lg-offset-1">
+                <div class="col-lg-4 col-lg-offset-1">
                     <label>Select city: </label>
                     @Html.DropDownList("Town", (IEnumerable<SelectListItem>)TempData["Towns"], String.Empty, new { @class = "form-control" })
+                </div>
+				<div class="col-lg-4">
+					<div class="row">
+						<label>Type of offer:</label>
+					</div>
+					<div class="col-lg-5">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.CheckBox("isPermanent")
+								Permanent
+							</label>
+						</div>
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.CheckBox("isTemporary")
+								Temporary
+							</label>
+						</div>
+					</div>
+					<div class="col-lg-5">
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.CheckBox("isFullTime")
+								Full time
+							</label>
+						</div>
+						<div class="form-check">
+							<label class="form-check-label">
+								@Html.CheckBox("isPartTime")
+								Part time
+							</label>
+						</div>
+					</div>
                 </div>
             </div>
             <br />

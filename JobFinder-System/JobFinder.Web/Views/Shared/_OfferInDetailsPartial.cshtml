@@ -42,6 +42,31 @@
                 <p class="text-muted">@Model.BusinessSector</p>
             </div>
         </div>
-
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Types:</h4>
+                </div>
+                <div class="col-md-4">
+					@if (Model.IsPermanent == null || Model.IsPermanent == true)
+					{
+						<span class="tag label label-info">Permanent</span>
+					}
+					
+					@if (Model.IsPermanent == null || Model.IsPermanent == false)
+					{
+						<span class="tag label label-info">Temporary</span>
+					}
+					
+					@if (Model.IsFullTime == null || Model.IsFullTime == true)
+					{
+						<span class="tag label label-info">Full Time</span>
+					}
+					
+					@if (Model.IsFullTime == null || Model.IsFullTime == false)
+					{
+						<span class="tag label label-info">Part Time</span>
+					}
+                </div>
+            </div>
     </div>
 </div>

@@ -21,7 +21,9 @@
                     ApplicationsCount = o.ApplicationsCount,
                     BusinessSector = o.BusinessSector.Name,
                     IsActive = o.IsActive,
-                    CompanyName = o.Company.CompanyName
+                    CompanyName = o.Company.CompanyName,
+                    IsFullTime = o.IsFullTime,
+                    IsPermanent = o.IsPermanent
                 };
             }
         }
@@ -45,5 +47,9 @@
         public bool IsActive { get; set; }
 
         public string CompanyName { get; set; }
+
+        public bool? IsFullTime { get; set; }
+
+        public bool? IsPermanent { get; set; }
     }
 }

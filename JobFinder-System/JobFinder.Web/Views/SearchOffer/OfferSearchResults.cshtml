@@ -15,6 +15,8 @@
     string town = null;
     string word = null;
     int[] sectors = null;
+	bool? isFullTime = null;
+	bool? isPermanent = null;
     if (TempData["Town"] != null)
     {
         town = TempData["Town"].ToString();        
@@ -27,12 +29,20 @@
     {
         sectors = (int[])TempData["Sectors"];
     }
+    if (TempData["IsFullTime"] != null)
+    {
+        isFullTime = (bool?)TempData["IsFullTime"];
+    }
+    if (TempData["IsPermanent"] != null)
+    {
+		isPermanent = (bool?)TempData["IsPermanent"];
+    }
 }
 
 @section pager {
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
     @Html.PagedListPager(Model, page => Url.Action("OfferSearchResults",
-        new { page, town, word, sectors }))
+        new { page, town, word, sectors, isFullTime, isPermanent }))
 }
 
 

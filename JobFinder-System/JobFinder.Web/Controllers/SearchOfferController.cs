@@ -30,18 +30,22 @@
             return this.View();
         }
         
-        public ActionResult OfferSearchResults(int? page, int[] sectors, int? town, string word)
+        public ActionResult OfferSearchResults(int? page, int[] sectors, int? town, string word, bool isPermanent, bool isTemporary, bool isFullTime, bool isPartTime)
         {
             SearchOfferViewModel search = new SearchOfferViewModel();
             search.Page = page ?? 1;
             search.Sectors = sectors;
             search.Town = town;
             search.Word = word;
+            search.IsFullTime = this.MapBools(isFullTime, isPartTime);
+            search.IsPermanent = this.MapBools(isPermanent, isTemporary);
             IEnumerable<SearchResultOfferViewModel> offers = this.GetResults(search);
 
             this.TempData["Town"] = search.Town;
             this.TempData["Word"] = search.Word;
             this.TempData["Sectors"] = sectors;
+            this.TempData["IsFullTime"] = isFullTime;
+            this.TempData["IsPermanent"] = isPermanent;
 
             return this.View(offers.ToPagedList((int)search.Page, OffersPerPage));
         }
@@ -59,6 +63,16 @@
                 string word = model.Word.ToLower();
                 offers = offers.Where(o => o.Title.ToLower().Contains(word) || o.Description.ToLower().Contains(word) 
                     || o.BusinessSector.Name.ToLower().Contains(word) || o.Company.CompanyName.ToLower().Contains(word));
+            }
+
+            if (offers != null && model.IsFullTime != null)
+            {
+                offers = offers.Where(o => o.IsFullTime == model.IsFullTime);                
+            }
+
+            if (offers != null && model.IsPermanent != null)
+            {
+                offers = offers.Where(o => o.IsPermanent == model.IsPermanent);                
             }
 
             return offers;
@@ -104,6 +118,16 @@
 
             this.TempData["OffersCount"] = offersCount;
             return offers;
+        }
+
+        private bool? MapBools(bool first, bool second)
+        {
+            if (first == second)
+            {
+                return null;
+            }
+
+            return first;
         }
     }
 }
