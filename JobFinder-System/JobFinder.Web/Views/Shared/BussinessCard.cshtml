@@ -8,8 +8,8 @@
 
     @if (HttpContext.Current.User.IsInRole("Company") && User.Identity.GetUserId() == Model.Id)
     {
-        <button id="editButton" class="btn btn-primary">Edit</button>
-        <hr />
+        <!--<button id="editButton" class="btn btn-primary">Edit</button>
+        <hr />-->
         <div id="editForm">
             @Html.Partial("~/Areas/Company/Views/BusinessCard/_EditCardPartial.cshtml")
         </div>
@@ -28,6 +28,8 @@
             if (form.hasClass('hidden')) {
                 form.show();
                 form.removeClass('hidden');
+
+                $('#business-card-container').hide();
             }
             else {
                 form.addClass('hidden').hide();

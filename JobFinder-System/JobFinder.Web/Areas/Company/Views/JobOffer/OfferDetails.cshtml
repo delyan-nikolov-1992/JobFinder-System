@@ -6,8 +6,9 @@
 
 @Html.Partial("~/Views/Shared/_OfferInDetailsPartial.cshtml")
 
-<div class="row">
-    <div class="col-lg-3">
+
+<div class="row" style="padding-top: 50px;">
+    <div class="col-lg-6">
         @{
             string buttonText = Model.IsActive ? "Mark as expired" : "EXPIRED OFFER";
             string buttonClass = Model.IsActive ? "btn btn-danger" : "btn btn-danger disabled";
@@ -17,13 +18,14 @@
                 {
                     HttpMethod = "GET"
                 }, new { @class = buttonClass, id = "expiredButton" })
-        <br/>
+        <br />
+        <br />
         <strong style="font-size:17px">You can't undo this action.</strong>
         <br />
         <span style="font-size:15px"><em>If you mark your offer as expired no one will be able to see it and apply for it.</em></span>
     </div>
-    <div class="col-lg-offset-6">
-        @Html.ActionLink("View applications", "GetApplications", "Application", new { area = "Company", id = Model.Id }, new { @class = "btn btn-primary" })
+    <div class="col-lg-6">
+        @Html.ActionLink("View applications", "GetApplications", "Application", new { area = "Company", id = Model.Id }, new { @class = "btn btn-primary view-appl-btn" })
     </div>
 </div>
 

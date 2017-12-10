@@ -106,14 +106,17 @@ footer p {
     border-radius: 10px;
 }
 
-.default-form .btn[type="submit"] {
+.default-form .btn[type="submit"], #editButton, .view-appl-btn {
     background-color:rgb(52, 188, 182);
     width:150px;
     border: none;
     color: #fff;
 }
 
-
+#expiredButton {
+    width:150px;
+    border: none;
+}
 
 .btn-default:hover {
     background-color: rgb(187, 236, 234);
@@ -146,6 +149,11 @@ footer p {
 #register-user-link {
     margin: 30px 0 10px 30px;
     color: rgb(52, 188, 182) !important;
+}
+
+ul.application-list .alert {
+    margin: 5px 40px 5px 0px;
+    padding: 5px 15px 0 15px;
 }
 
 ul.company-offers-list {
@@ -187,4 +195,53 @@ ul.pagination li.active a {
     padding-top:15px;
     text-transform: uppercase;
     color: rgb(52, 188, 182);
+}
+
+.default-panel  {
+    padding:0px;
+    border-color: rgb(52, 188, 182);
+
+}
+
+.default-panel .panel-heading {
+    background-color: rgb(52, 188, 182);
+    border-color: rgb(52, 188, 182);
+}
+
+.default-panel .panel-title {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.default-panel p {
+    margin: 0 30px 10px 40px;
+}
+
+.default-panel h5 {
+    font-weight: bold;
+}
+
+.default-panel p span.text-default {
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-right: 10px;
+}
+
+.empty-table {
+    padding: 40px;
+    font-size: 20px;
+}
+
+.filter-applications {
+    padding-top: 15px;
+}
+
+.filter-applications label {
+    vertical-align: top;
+    padding-right: 10px;
+}
+
+.results {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
