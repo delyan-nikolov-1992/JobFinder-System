@@ -8,6 +8,7 @@
     using JobFinder.Models;
     using JobFinder.Web.Areas.Company.Models.JobOfferViewModels;
     using JobFinder.Web.Controllers;
+    using JobFinder.Web.Helpers;
     using JobFinder.Web.Models.MessageViewModels;
     using JobFinder.Web.Models.OfferViewModels;
     using Microsoft.AspNet.Identity;
@@ -86,6 +87,8 @@
                 offer.IsActive = true;
                 offer.CompanyId = companyId;
                 offer.BusinessSectorId = model.BusinessSectorId;
+                offer.IsPermanent = model.IsPermanent.MapBools(model.IsTemporary);
+                offer.IsFullTime = model.IsFullTime.MapBools(model.IsPartTime);
                 this.Data.JobOffers.Add(offer);
                 MessageViewModel message = new MessageViewModel 
                     { Type = MessageType.Success, Text = "You have successfully created your job offer." };

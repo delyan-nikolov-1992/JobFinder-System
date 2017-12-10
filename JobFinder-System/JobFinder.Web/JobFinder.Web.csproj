@@ -231,7 +231,7 @@
     <Compile Include="Areas\Company\Models\JobOfferViewModels\ListOfferViewModel.cs" />
     <Compile Include="Areas\Person\Controllers\ApplyController.cs" />
     <Compile Include="Areas\Person\Controllers\FollowedOffersController.cs" />
-    <Compile Include="Helpers\HtmlHelperExtensions.cs" />
+    <Compile Include="Helpers\HelperExtensions.cs" />
     <Compile Include="Models\AccountViewModels\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Models\AccountViewModels\ExternalLoginListViewModel.cs" />
     <Compile Include="Models\AccountViewModels\ForgotPasswordViewModel.cs" />

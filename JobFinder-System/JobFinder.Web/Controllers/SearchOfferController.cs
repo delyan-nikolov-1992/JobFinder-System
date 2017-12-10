@@ -6,6 +6,7 @@
     using System.Web.Mvc;
     using JobFinder.Data;
     using JobFinder.Models;
+    using JobFinder.Web.Helpers;
     using JobFinder.Web.Models.OfferViewModels;
     using PagedList;
 
@@ -37,8 +38,8 @@
             search.Sectors = sectors;
             search.Town = town;
             search.Word = word;
-            search.IsFullTime = this.MapBools(isFullTime, isPartTime);
-            search.IsPermanent = this.MapBools(isPermanent, isTemporary);
+            search.IsFullTime = isFullTime.MapBools(isPartTime);
+            search.IsPermanent = isPermanent.MapBools(isTemporary);
             IEnumerable<SearchResultOfferViewModel> offers = this.GetResults(search);
 
             this.TempData["Town"] = search.Town;
@@ -118,16 +119,6 @@
 
             this.TempData["OffersCount"] = offersCount;
             return offers;
-        }
-
-        private bool? MapBools(bool first, bool second)
-        {
-            if (first == second)
-            {
-                return null;
-            }
-
-            return first;
         }
     }
 }
