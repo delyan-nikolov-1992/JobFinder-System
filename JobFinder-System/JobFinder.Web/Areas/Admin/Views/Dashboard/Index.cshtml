@@ -5,50 +5,79 @@
 	ViewBag.Title = "Dashboard";
 }
 
+<div>
+	<ul class="nav nav-pills">
+		<li class="active"><a href="#">Offers by sector</a></li>
+		<li id="offersSector"><a href="#">Menu 1</a></li>
+		<li><a href="#">Menu 2</a></li>
+		<li><a href="#">Menu 3</a></li>
+	</ul>
+</div>
 <div id="container"></div>
 
 @section Scripts {
 	@Scripts.Render("~/bundles/highcharts")
 
 	<script>
-		var data = util.toJS(@(Html.ToJson(Model)));
-		Highcharts.chart('container', {
-			lang: {
-				noData: "No data to display!"
-			},
-			chart: {
-				plotBackgroundColor: null,
-				plotBorderWidth: null,
-				plotShadow: false,
-				type: 'pie'
-			},
-			title: {
-				text: 'Job offers by sectors - December, 2017'
-			},
-			credits: {
-				enabled: false
-			},
-			tooltip: {
-				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-			},
-			plotOptions: {
-				pie: {
-					allowPointSelect: true,
-					cursor: 'pointer',
-					dataLabels: {
-						enabled: true,
-						format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-						style: {
-							color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+		function offersBySector(data) {
+			Highcharts.chart('container', {
+				lang: {
+					noData: 'No data to display!'
+				},
+				chart: {
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: false,
+					type: 'pie'
+				},
+				title: {
+					text: 'Job offers by sectors - December, 2017'
+				},
+				credits: {
+					enabled: false
+				},
+				tooltip: {
+					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: true,
+							format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+							style: {
+								color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+							}
 						}
 					}
-				}
-			},
-			series: [{
-				name: 'Sector',
-				colorByPoint: true,
-				data: data
-			}]
+				},
+				series: [{
+					name: 'Sector',
+					colorByPoint: true,
+					data: data
+				}]
+			});
+		}
+
+		function changeActiveElement(element) {
+			$('.nav-pills > li.active').removeClass('active');
+			element.addClass('active');
+		}
+
+		function getOffersSector(element) {
+			$.post('@Url.Action("Dido", "Dashboard")',
+                function (data) {
+                	changeActiveElement(element);
+                	offersBySector(JSON.parse(data));
+                });
+		}
+
+		$('#offersSector').click(function () {
+			getOffersSector($(this));
 		});
+
+		var data = util.toJS(@(Html.ToJson(Model)));
+		offersBySector(data);
 	</script>
 }
