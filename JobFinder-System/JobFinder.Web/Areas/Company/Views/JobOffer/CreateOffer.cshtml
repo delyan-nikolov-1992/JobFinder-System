@@ -33,6 +33,25 @@
                 @Html.DropDownListFor(o => o.BusinessSectorId, ((IEnumerable<SelectListItem>)TempData["BusinessSectors"]), new { @class = "form-control" })
             </div>
         </div>
+		<div class="form-group">
+            <label class="col-md-2 control-label">Types of offer</label>
+			<div class="col-md-2">
+				@Html.CheckBoxFor(o => o.IsPermanent)
+				@Html.LabelFor(o => o.IsPermanent)
+			</div>
+			<div class="col-md-6">
+				@Html.CheckBoxFor(o => o.IsFullTime)
+				@Html.LabelFor(o => o.IsFullTime)
+			</div>
+			<div class="col-md-2 col-md-offset-2">
+				@Html.CheckBoxFor(o => o.IsTemporary)
+				@Html.LabelFor(o => o.IsTemporary)
+			</div>
+			<div class="col-md-2">
+				@Html.CheckBoxFor(o => o.IsPartTime)
+				@Html.LabelFor(o => o.IsPartTime)
+			</div>
+        </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" class="btn btn-default" value="Create" />

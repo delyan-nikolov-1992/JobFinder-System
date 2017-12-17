@@ -6,7 +6,7 @@
     using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Serialization;
 
-    public static class HtmlHelperExtensions
+    public static class HelperExtensions
     {
         public static IHtmlString ToJson(this HtmlHelper helper, object obj)
         {
@@ -16,6 +16,16 @@
             };
             settings.Converters.Add(new JavaScriptDateTimeConverter());
             return helper.Raw(JsonConvert.SerializeObject(obj, settings));
+        }
+
+        public static bool? MapBools(this bool first, bool second)
+        {
+            if (first == second)
+            {
+                return null;
+            }
+
+            return first;
         }
     }
 }

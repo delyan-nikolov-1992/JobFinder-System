@@ -15,5 +15,21 @@
 
         [Required]
         public int BusinessSectorId { get; set; }
+
+        [Required]
+        [Display(Name = "Permanent")]
+        public bool IsPermanent { get; set; }
+
+        [Required]
+        [Display(Name = "Temporary")]
+        public bool IsTemporary { get; set; }
+
+        [Required]
+        [Display(Name = "Full Time")]
+        public bool IsFullTime { get; set; }
+
+        [Required]
+        [Display(Name = "Part Time")]
+        public bool IsPartTime { get; set; }
     }
 }

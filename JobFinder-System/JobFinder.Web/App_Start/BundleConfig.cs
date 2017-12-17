@@ -74,6 +74,7 @@
 
             bundles.Add(new ScriptBundle("~/bundles/highcharts").Include(
                 "~/Scripts/highcharts/highstock.js",
+                "~/Scripts/highcharts/series-label.js",
                 "~/Scripts/highcharts/exporting.js",
                 "~/Scripts/highcharts/no-data-to-display.js"));
 

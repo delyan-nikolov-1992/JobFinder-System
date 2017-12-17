@@ -70,6 +70,59 @@
             return this.Json(this.ToJson(model));
         }
 
+        [HttpPost]
+        public ActionResult OffersByType()
+        {
+            var permanentOffers = this.Data.JobOffers.All()
+                .Where(o => o.IsActive && (o.IsPermanent == null || o.IsPermanent == true)).Count();
+            var temporaryOffers = this.Data.JobOffers.All()
+                .Where(o => o.IsActive && (o.IsPermanent == null || o.IsPermanent == false)).Count();
+            var fullTimeOffers = this.Data.JobOffers.All()
+                .Where(o => o.IsActive && (o.IsFullTime == null || o.IsFullTime == true)).Count();
+            var partTimeOffers = this.Data.JobOffers.All()
+                .Where(o => o.IsActive && (o.IsFullTime == null || o.IsFullTime == false)).Count();
+
+            var model = new List<ColumnViewModel>
+            {
+                new ColumnViewModel { Name = "Permanent", Data = new[] { permanentOffers } },
+                new ColumnViewModel { Name = "Temporary", Data = new[] { temporaryOffers } },
+                new ColumnViewModel { Name = "Full Time", Data = new[] { fullTimeOffers } },
+                new ColumnViewModel { Name = "Part Time", Data = new[] { partTimeOffers } }
+            };
+
+            return this.Json(this.ToJson(model));
+        }
+
+        [HttpPost]
+        public ActionResult OffersByTopSector()
+        {
+            var offers = this.Data.JobOffers.All()
+                .Where(o => o.DateCreated >= new DateTime(2017, 1, 1) && o.DateCreated < new DateTime(2018, 1, 1))
+                .GroupBy(o => o.BusinessSectorId)
+                .OrderByDescending(o => o.Count())
+                .Take(5)
+                .ToList();
+
+            var model = new List<ColumnViewModel>();
+
+            foreach (var offer in offers)
+            {
+                var column = new ColumnViewModel { Name = offer.First().BusinessSector.Name };
+                var offersByMonth = offer.ToList();
+
+                for (int i = 1; i <= 12; i++)
+                {
+                    var offersForMonth = offersByMonth.Where(o => o.DateCreated.Month == i).Count();
+
+                    column.Data.Add(offersForMonth);
+                }
+
+                model.Add(column);
+            }
+
+            return this.Json(this.ToJson(model));
+        }
+
         private IEnumerable<DashboardViewModel> GetOffersBySector()
         {
             var jobOffersCount = this.Data.JobOffers.All().Where(o => o.IsActive).Count();

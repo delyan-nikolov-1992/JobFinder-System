@@ -522,13 +522,13 @@ namespace JobFinder.Data.Migrations
                     {
                         context.JobOffers.Add(new JobOffer
                         {
-                            Title = string.Format("{0} #{1}", sector.Name, i),
+                            Title = string.Format("{0} {1}", sector.Name, i),
                             Description = string.Format(
-                                "Amazing job from sector: {0}, which is #{1} of {2} offers in this sector",
+                                "Amazing job from sector: {0}, which is {1} of {2} offers in this sector",
                                 sector.Name,
                                 i,
                                 sector.Count),
-                            DateCreated = DateTime.Now.AddMonths(i * -1),
+                            DateCreated = this.GetRandomDate(),
                             IsActive = true,
                             CompanyId = companies[rnd.Next(companies.Count())].Id,
                             TownId = towns[rnd.Next(towns.Count())].Id,
@@ -558,6 +558,14 @@ namespace JobFinder.Data.Migrations
             context.Configuration.ValidateOnSaveEnabled = false;
 
             return context;
+        }
+
+        private DateTime GetRandomDate()
+        {
+            var start = new DateTime(2005, 1, 1);
+            var range = (DateTime.Today - start).Days;
+
+            return start.AddDays(rnd.Next(range));
         }
 
         private class JobOfferPerCriteria
