@@ -528,7 +528,7 @@ namespace JobFinder.Data.Migrations
                                 sector.Name,
                                 i,
                                 sector.Count),
-                            DateCreated = DateTime.Now.AddMonths(i * -1),
+                            DateCreated = this.GetRandomDate(),
                             IsActive = true,
                             CompanyId = companies[rnd.Next(companies.Count())].Id,
                             TownId = towns[rnd.Next(towns.Count())].Id,
@@ -558,6 +558,14 @@ namespace JobFinder.Data.Migrations
             context.Configuration.ValidateOnSaveEnabled = false;
 
             return context;
+        }
+
+        private DateTime GetRandomDate()
+        {
+            var start = new DateTime(2005, 1, 1);
+            var range = (DateTime.Today - start).Days;
+
+            return start.AddDays(rnd.Next(range));
         }
 
         private class JobOfferPerCriteria

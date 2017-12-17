@@ -522,6 +522,7 @@
     <Content Include="Scripts\highcharts\exporting.js" />
     <Content Include="Scripts\highcharts\highstock.js" />
     <Content Include="Scripts\highcharts\no-data-to-display.js" />
+    <Content Include="Scripts\highcharts\series-label.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
