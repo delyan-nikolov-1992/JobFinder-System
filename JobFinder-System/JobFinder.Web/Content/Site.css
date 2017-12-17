@@ -28,7 +28,7 @@ textarea {
 }
 
 .offerHeader {
-    font-size: 25px;
+    font-size: 20px;
     padding: 0;
 }
 
@@ -124,8 +124,16 @@ footer p {
 
 .offersList {
     border: 2px solid rgb(52, 188, 182);
+    margin-right: 20px;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(52, 188, 182, 0.1);
 }
 
+.offer-company-name {
+    font-size:20px;
+}
 
 .body-content h4 {
     text-transform: uppercase;

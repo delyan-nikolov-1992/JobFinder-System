@@ -1,4 +1,8 @@
 ﻿@model JobFinder.Web.Areas.Company.Models.BussinessCardViewModels.BussinessCardViewModel
+@{
+    bool showEdit = TempData["showEditBtn"] != null ? (bool)TempData["showEditBtn"] : true;
+}
+
 <div id="business-card-container" class="row">
     <div class="default-panel panel panel-primary col-lg-6">
         <div class="panel-heading">
@@ -21,9 +25,12 @@
             <p>
                 <span class="text-default">Bussiness sectors: </span><span class="text-muted"> @String.Join(", ", @Model.BusinessSectors.Select(b => b.Text))</span>
             </p>
-            <p>
-                <button id="editButton" class="btn btn-primary pull-right">Edit</button>
-            </p>
+            @if (showEdit)
+            {
+                <p>
+                    <button id="editButton" class="btn btn-primary pull-right">Edit</button>
+                </p>
+            }
         </div>
     </div>
 </div>
