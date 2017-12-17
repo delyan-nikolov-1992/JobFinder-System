@@ -522,9 +522,9 @@ namespace JobFinder.Data.Migrations
                     {
                         context.JobOffers.Add(new JobOffer
                         {
-                            Title = string.Format("{0} #{1}", sector.Name, i),
+                            Title = string.Format("{0} {1}", sector.Name, i),
                             Description = string.Format(
-                                "Amazing job from sector: {0}, which is #{1} of {2} offers in this sector",
+                                "Amazing job from sector: {0}, which is {1} of {2} offers in this sector",
                                 sector.Name,
                                 i,
                                 sector.Count),
