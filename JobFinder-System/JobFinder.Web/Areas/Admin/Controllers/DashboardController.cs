@@ -97,7 +97,7 @@
         public ActionResult OffersByTopSector()
         {
             var offers = this.Data.JobOffers.All()
-                .Where(o => o.DateCreated >= new DateTime(2017, 1, 1) && o.DateCreated < new DateTime(2018, 1, 1))
+                .Where(o => o.IsActive && o.DateCreated >= new DateTime(2017, 1, 1) && o.DateCreated < new DateTime(2018, 1, 1))
                 .GroupBy(o => o.BusinessSectorId)
                 .OrderByDescending(o => o.Count())
                 .Take(5)
@@ -118,6 +118,27 @@
                 }
 
                 model.Add(column);
+            }
+
+            return this.Json(this.ToJson(model));
+        }
+
+        [HttpPost]
+        public ActionResult OffersByTopCompany()
+        {
+            var offerByTopCompanies = this.Data.JobOffers.All()
+                .Where(o => o.IsActive && o.DateCreated >= new DateTime(2017, 1, 1) && o.DateCreated < new DateTime(2018, 1, 1))
+                .GroupBy(o => o.CompanyId)
+                .OrderByDescending(o => o.Count())
+                .Take(10)
+                .Select(o => new DashboardViewModel { Name = o.FirstOrDefault().Company.CompanyName, Y = o.Count() })
+                .ToList();
+
+            var model = new List<object>();
+
+            foreach (var offer in offerByTopCompanies)
+            {
+                model.Add(new List<object> { offer.Name, offer.Y });
             }
 
             return this.Json(this.ToJson(model));

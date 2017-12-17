@@ -11,6 +11,7 @@
 		<li id="offersTown"><a href="#">Offers by town</a></li>
 		<li id="offersType"><a href="#">Offers by type</a></li>
 		<li id="offersTopSector"><a href="#">Top offers by sectors</a></li>
+		<li id="offersTopCompany"><a href="#">Top employers</a></li>
 	</ul>
 </div>
 <div id="container" style="height: 500px;"></div>
@@ -210,6 +211,61 @@
 			});
 		}
 
+		function offersByTopCompany(data) {
+			Highcharts.chart('container', {
+				lang: {
+					noData: 'No data to display!'
+				},
+				chart: {
+					type: 'column'
+				},
+				title: {
+					text: 'Top employers per 2017'
+				},
+				xAxis: {
+					type: 'category',
+					labels: {
+						rotation: -45,
+						style: {
+							fontSize: '13px',
+							fontFamily: 'Verdana, sans-serif'
+						}
+					}
+				},
+				yAxis: {
+					min: 0,
+					title: {
+						text: 'Number of offers'
+					}
+				},
+				legend: {
+					enabled: false
+				},
+				tooltip: {
+					pointFormat: 'Offers count in 2017: <b>{point.y}</b>'
+				},
+				credits: {
+					enabled: false
+				},
+				series: [{
+					name: 'Offers count',
+					data: data,
+					dataLabels: {
+						enabled: true,
+						rotation: -90,
+						color: '#FFFFFF',
+						align: 'right',
+						format: '{point.y}',
+						y: 10,
+						style: {
+							fontSize: '13px',
+							fontFamily: 'Verdana, sans-serif'
+						}
+					}
+				}]
+			});
+		}
+
 		function changeActiveElement(element) {
 			$('.nav-pills > li.active').removeClass('active');
 			element.addClass('active');
@@ -255,6 +311,15 @@
                 });
 		}
 
+		function getOffersTopCompany(element, height) {
+			$.post('@Url.Action("OffersByTopCompany", "Dashboard")',
+                function (data) {
+                	changeActiveElement(element);
+                	changeContainerHeight(height);
+                	offersByTopCompany(JSON.parse(data));
+                });
+		}
+
 		$('#offersSector').click(function () {
 			getOffersSector($(this), 500);
 		});
@@ -269,6 +334,10 @@
 
 		$('#offersTopSector').click(function () {
 			getOffersTopSector($(this), 500);
+		});
+
+		$('#offersTopCompany').click(function () {
+			getOffersTopCompany($(this), 400);
 		});
 
 		var data = util.toJS(@(Html.ToJson(Model)));
