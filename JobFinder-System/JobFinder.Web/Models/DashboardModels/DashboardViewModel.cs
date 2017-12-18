@@ -1,4 +1,4 @@
-﻿namespace JobFinder.Web.Areas.Admin.Models.DashboardModels
+﻿namespace JobFinder.Web.Models.DashboardModels
 {
     using System;
     using System.Collections.Generic;

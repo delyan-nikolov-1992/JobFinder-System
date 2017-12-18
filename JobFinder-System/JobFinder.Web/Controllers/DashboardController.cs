@@ -1,17 +1,15 @@
-﻿namespace JobFinder.Web.Areas.Admin.Controllers
+﻿namespace JobFinder.Web.Controllers
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using JobFinder.Data;
-    using JobFinder.Web.Areas.Admin.Models.DashboardModels;
-    using JobFinder.Web.Controllers;
+    using JobFinder.Web.Models.DashboardModels;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Serialization;
 
-    [Authorize(Roles = "Admin")]
     public class DashboardController : BaseController
     {
         public DashboardController(IJobFinderData data)
@@ -19,7 +17,7 @@
         {
         }
 
-        // GET: Admin/Dashboard
+        // GET: Dashboard
         public ActionResult Index()
         {
             return this.View(this.GetOffersBySector());

@@ -1,4 +1,4 @@
-﻿namespace JobFinder.Web.Areas.Admin.Models.DashboardModels
+﻿namespace JobFinder.Web.Models.DashboardModels
 {
     public class OfferViewModel
     {
