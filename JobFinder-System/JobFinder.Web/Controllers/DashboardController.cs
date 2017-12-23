@@ -32,7 +32,7 @@
         [HttpPost]
         public ActionResult OffersByTown()
         {
-            var townModels = this.Data.JobOffers.All().Where(o => o.IsActive).GroupBy(o => o.TownId)
+            var townModels = this.Data.JobOffers.All().GroupBy(o => o.TownId)
                 .Select(o => new TownViewModel
                 {
                     Name = o.FirstOrDefault().Town.Name,
@@ -72,13 +72,13 @@
         public ActionResult OffersByType()
         {
             var permanentOffers = this.Data.JobOffers.All()
-                .Where(o => o.IsActive && (o.IsPermanent == null || o.IsPermanent == true)).Count();
+                .Where(o => o.IsPermanent == null || o.IsPermanent == true).Count();
             var temporaryOffers = this.Data.JobOffers.All()
-                .Where(o => o.IsActive && (o.IsPermanent == null || o.IsPermanent == false)).Count();
+                .Where(o => o.IsPermanent == null || o.IsPermanent == false).Count();
             var fullTimeOffers = this.Data.JobOffers.All()
-                .Where(o => o.IsActive && (o.IsFullTime == null || o.IsFullTime == true)).Count();
+                .Where(o => o.IsFullTime == null || o.IsFullTime == true).Count();
             var partTimeOffers = this.Data.JobOffers.All()
-                .Where(o => o.IsActive && (o.IsFullTime == null || o.IsFullTime == false)).Count();
+                .Where(o => o.IsFullTime == null || o.IsFullTime == false).Count();
 
             var model = new List<ColumnViewModel>
             {
@@ -95,7 +95,7 @@
         public ActionResult OffersByTopSector()
         {
             var offers = this.Data.JobOffers.All()
-                .Where(o => o.IsActive && o.DateCreated >= new DateTime(2017, 1, 1) && o.DateCreated < new DateTime(2018, 1, 1))
+                .Where(o => o.DateCreated >= new DateTime(2017, 1, 1) && o.DateCreated < new DateTime(2018, 1, 1))
                 .GroupBy(o => o.BusinessSectorId)
                 .OrderByDescending(o => o.Count())
                 .Take(5)
@@ -125,7 +125,7 @@
         public ActionResult OffersByTopCompany()
         {
             var offerByTopCompanies = this.Data.JobOffers.All()
-                .Where(o => o.IsActive && o.DateCreated >= new DateTime(2017, 1, 1) && o.DateCreated < new DateTime(2018, 1, 1))
+                .Where(o => o.DateCreated >= new DateTime(2017, 1, 1) && o.DateCreated < new DateTime(2018, 1, 1))
                 .GroupBy(o => o.CompanyId)
                 .OrderByDescending(o => o.Count())
                 .Take(10)
@@ -144,14 +144,14 @@
 
         private IEnumerable<DashboardViewModel> GetOffersBySector()
         {
-            var jobOffersCount = this.Data.JobOffers.All().Where(o => o.IsActive).Count();
+            var jobOffersCount = this.Data.JobOffers.All().Count();
 
             if (jobOffersCount == 0)
             {
                 return new DashboardViewModel[] { };
             }
 
-            var model = this.Data.JobOffers.All().Where(o => o.IsActive).GroupBy(o => o.BusinessSectorId)
+            var model = this.Data.JobOffers.All().GroupBy(o => o.BusinessSectorId)
                 .Select(o => new DashboardViewModel { Name = o.FirstOrDefault().BusinessSector.Name, Y = o.Count() })
                 .ToList()
                 .Select(o => new DashboardViewModel { Name = o.Name, Y = Math.Round(Convert.ToDouble(o.Y / jobOffersCount) * 100, 2) })
