@@ -74,12 +74,13 @@
 
                 // TempData["NotFound"] = "Company not found.";
             }
-            TempData["showEditBtn"] = false;
+
+            this.TempData["showEditBtn"] = false;
             string userId = this.User.Identity.GetUserId();
 
             if (userId == id)
             {
-                TempData["showEditBtn"] = true;
+                this.TempData["showEditBtn"] = true;
             }
 
             return this.View("BussinessCard", model);
