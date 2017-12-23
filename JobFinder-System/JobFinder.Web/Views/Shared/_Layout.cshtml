@@ -19,7 +19,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    @Html.ActionLink("JobFinder", "SearchOffers", "SearchOffer", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Job Finder", "SearchOffers", "SearchOffer", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
                 <div class="navbar-collapse collapse">
                     @if (Session["MyMenu"] == null)
@@ -48,7 +48,7 @@
         <div class="footer">
             <div class="row">
                 <div class="col-md-3">
-                    <!--<img src="Url.Content("~/Files/jobs.png")" />-->
+                    <img src="@Url.Content("~/Files/jobs.png")" />
                     <footer>
                         <p>&copy; @DateTime.Now.Year - Delyan Nikolov</p>
                     </footer>                  
