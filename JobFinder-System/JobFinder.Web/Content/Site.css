@@ -249,6 +249,6 @@ ul.pagination li.active a {
     padding-bottom: 15px;
 }
 
-.editor-label {
+.k-edit-form-container .editor-label {
     padding-top: 0;
 }

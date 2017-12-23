@@ -213,6 +213,9 @@
                     user.Bulstat = model.Bulstat;
                     user.CompanyName = model.CompanyName;
                     user.PhoneNumber = model.Phone;
+                    user.Address = model.Address;
+                    user.AboutUs = model.AboutUs;
+                    user.WebSite = model.WebSite;
 
                     var result = await this.UserManager.CreateAsync(user, model.Password);                    
                     if (result.Succeeded)

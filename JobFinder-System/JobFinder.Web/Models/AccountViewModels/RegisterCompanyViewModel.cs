@@ -23,6 +23,21 @@
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+
+        [Required]
+        [Url]
+        [Display(Name = "Web site")]
+        public string WebSite { get; set; }
+
+        [Required]
+        [StringLength(1000, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 100)]
+        [DataType(DataType.Password)]
+        [Display(Name = "About us")]
+        public string AboutUs { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
