@@ -248,3 +248,7 @@ ul.pagination li.active a {
     padding-top: 15px;
     padding-bottom: 15px;
 }
+
+.editor-label {
+    padding-top: 0;
+}
