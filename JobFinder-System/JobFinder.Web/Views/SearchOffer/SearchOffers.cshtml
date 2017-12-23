@@ -29,11 +29,11 @@
             </div>
             <br />
             <div class="row form-group">
-                <div class="col-lg-4 col-lg-offset-1">
+                <div class="col-lg-4 col-lg-offset-1" style="padding-left:0">
                     <label>Select city: </label>
                     @Html.DropDownList("Town", (IEnumerable<SelectListItem>)TempData["Towns"], String.Empty, new { @class = "form-control" })
                 </div>
-				<div class="col-lg-4">
+				<div class="col-lg-4" style="padding-left:30px">
 					<div class="row">
 						<label>Select types of offer:</label>
 					</div>
