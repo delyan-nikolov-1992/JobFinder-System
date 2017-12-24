@@ -20,6 +20,7 @@ namespace JobFinder.Data.Migrations
 
         protected override void Seed(JobFinderDbContext context)
         {
+            /*
             // Add roles
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
@@ -547,6 +548,7 @@ namespace JobFinder.Data.Migrations
 
             context.Configuration.AutoDetectChangesEnabled = true;
             context.Configuration.ValidateOnSaveEnabled = true;
+            */
         }
 
         private JobFinderDbContext RecreateContext(JobFinderDbContext context)
@@ -562,7 +564,7 @@ namespace JobFinder.Data.Migrations
 
         private DateTime GetRandomDate()
         {
-            var start = new DateTime(2005, 1, 1);
+            var start = new DateTime(2015, 1, 1);
             var range = (DateTime.Today - start).Days;
 
             return start.AddDays(rnd.Next(range));
