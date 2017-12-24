@@ -251,3 +251,7 @@ ul.pagination li.active a {
 .k-edit-form-container .editor-label {
     padding-top: 0;
 }
+
+.k-filter-menu input[type="radio"] {
+    margin: 4px;
+}
