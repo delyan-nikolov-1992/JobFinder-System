@@ -72,13 +72,13 @@
         public ActionResult OffersByType()
         {
             var permanentOffers = this.Data.JobOffers.All()
-                .Where(o => o.IsPermanent == null || o.IsPermanent == true).Count();
+                .Where(o => o.IsActive && (o.IsPermanent == null || o.IsPermanent == true)).Count();
             var temporaryOffers = this.Data.JobOffers.All()
-                .Where(o => o.IsPermanent == null || o.IsPermanent == false).Count();
+                .Where(o => o.IsActive && (o.IsPermanent == null || o.IsPermanent == false)).Count();
             var fullTimeOffers = this.Data.JobOffers.All()
-                .Where(o => o.IsFullTime == null || o.IsFullTime == true).Count();
+                .Where(o => o.IsActive && (o.IsFullTime == null || o.IsFullTime == true)).Count();
             var partTimeOffers = this.Data.JobOffers.All()
-                .Where(o => o.IsFullTime == null || o.IsFullTime == false).Count();
+                .Where(o => o.IsActive && (o.IsFullTime == null || o.IsFullTime == false)).Count();
 
             var model = new List<ColumnViewModel>
             {

@@ -194,7 +194,6 @@ ul.pagination li.active a {
 }
 
 #filter .control-label {
-    padding-top:15px;
     text-transform: uppercase;
     color: rgb(52, 188, 182);
 }
