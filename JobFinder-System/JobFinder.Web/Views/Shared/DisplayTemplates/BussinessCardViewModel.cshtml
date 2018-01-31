@@ -20,7 +20,7 @@
             }
             @if (!String.IsNullOrEmpty(Model.WebSite))
             {
-                <p><span class="text-default">Website: </span><span class="text-muted"><a href="@Model.WebSite">@Model.WebSite</a></span></p>
+                <p><span class="text-default">Website: </span><span class="text-muted"><a href="@Model.WebSite" target="_blank">@Model.WebSite</a></span></p>
             }
             <p>
                 <span class="text-default">Bussiness sectors: </span><span class="text-muted"> @String.Join(", ", @Model.BusinessSectors.Select(b => b.Text))</span>
